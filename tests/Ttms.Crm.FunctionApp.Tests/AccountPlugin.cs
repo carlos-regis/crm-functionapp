@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
-using Xunit;
+﻿using Xunit;
 
 namespace Ttms.Crm.FunctionApp.Tests
 {
-    public class UnitTest1
+    public class AccountPlugin
     {
         [Fact]
         public void TestMethod1()
