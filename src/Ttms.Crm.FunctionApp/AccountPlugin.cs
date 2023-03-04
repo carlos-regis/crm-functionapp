@@ -16,36 +16,39 @@ namespace Ttms.Crm.FunctionApp
         [FunctionName("AccountPlugin")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequestMessage req, TraceWriter log)
         {
-            log.Info("D365 webhook was triggered!");
+            log.Info("Webhook triggered!");
 
             CrmServiceClient crmServiceClient;
 
             try
             {
-                crmServiceClient = Common.ConnectionCrmServiceClient(log);
-                if (crmServiceClient is null)
-                {
-                    throw new InvalidOperationException("Failed to Established Connection!");
-                }
+                CrmConnection crmConnection = new CrmConnection(log);
+                crmServiceClient = crmConnection.Run();
             }
             catch (Exception ex)
             {
-                log.Error($"Exception: {ex.Message}");
+                log.Error(string.Format("AccountPlugin - service connection: {0}", ex.Message));
                 return req.CreateResponse(HttpStatusCode.BadGateway);
             }
 
             string jsonContent = await req.Content.ReadAsStringAsync();
-            log.Info(jsonContent);
+            log.Info(string.Format("Webhook context: {0}", jsonContent));
 
-            //RemoteExecutionContext remoteExecutionContext = Common.GetD365Context(log, jsonContent);
-            //FunctionProcess.ProcessContext(log, remoteExecutionContext, crmServiceClient);
-
-            Entity account = new Entity("account");
-            account["name"] = $"Azure function account #{new Random().Next(1, 100)}";
-
-            log.Info("Creating new account");
-            crmServiceClient.Create(account);
-            log.Info("Account successfully created");
+            try
+            {
+                RemoteExecutionContext remoteExecutionContext = Common.GetD365Context(log, jsonContent);
+                FunctionProcess.ProcessContext(log, remoteExecutionContext, crmServiceClient);
+            }
+            catch (Exception ex)
+            {
+                log.Error(string.Format("AccountPlugin - context processing: {0}", ex.Message));
+                return req.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            finally
+            {
+                // Always dispose the service object to close the service connection and free resources.
+                crmServiceClient?.Dispose();
+            }
 
             return req.CreateResponse(HttpStatusCode.OK);
         }
