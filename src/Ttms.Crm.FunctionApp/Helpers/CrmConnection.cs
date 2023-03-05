@@ -1,4 +1,4 @@
-﻿using Microsoft.Azure.WebJobs.Host;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Tooling.Connector;
 using System;
@@ -11,11 +11,11 @@ namespace Ttms.Crm.FunctionApp.Helper
 {
     public class CrmConnection
     {
-        private readonly TraceWriter _logger;
+        private readonly ILogger _logger;
 
-        public CrmConnection(TraceWriter logger)
+        public CrmConnection(ILogger logger)
         {
-            _logger = logger;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Ttms.Crm.FunctionApp.Helper
             CrmServiceClient service = null;
             try
             {
-                _logger.Info("Setting up connection");
+                _logger.LogInformation("Setting up connection");
 
                 // Connect to the CRM web service using a connection string.
                 service = new CrmServiceClient(GetServiceConfiguration(connectionString));
@@ -40,12 +40,12 @@ namespace Ttms.Crm.FunctionApp.Helper
                 {
                     if (service.LastCrmError.Contains(Constants.ERROR_UNABLE_TO_LOGIN))
                     {
-                        _logger.Error(string.Format("{0}: {1}", nameof(Connect), service.LastCrmError));
+                        _logger.LogError(string.Format("{0}: {1}", nameof(Connect), service.LastCrmError));
                         throw new InvalidOperationException(service.LastCrmError);
                     }
                     else
                     {
-                        _logger.Error(string.Format("{0}: {1}", nameof(Connect), service.LastCrmException.ToString()));
+                        _logger.LogError(string.Format("{0}: {1}", nameof(Connect), service.LastCrmException.ToString()));
                         throw service.LastCrmException;
                     }
                 }
@@ -73,7 +73,7 @@ namespace Ttms.Crm.FunctionApp.Helper
         /// <param name="exception">The exception thrown</param>
         private void HandleException(Exception ex)
         {
-            _logger.Error(string.Format("{0}: {1}.", nameof(Connect), ex.ToString()));
+            _logger.LogError(string.Format("{0}: {1}.", nameof(Connect), ex.ToString()));
 
             if (ex.InnerException != null)
             {
@@ -90,7 +90,7 @@ namespace Ttms.Crm.FunctionApp.Helper
         {
             try
             {
-                string crmConnectionString = Common.GetEnvironmentVariables(_logger, connectionString);
+                string crmConnectionString = Common.GetEnvironmentVariables(connectionString);
                 if (IsValidConnectionString(crmConnectionString))
                 {
                     return crmConnectionString;
@@ -102,7 +102,7 @@ namespace Ttms.Crm.FunctionApp.Helper
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.ToString());
+                _logger.LogError(ex.ToString());
                 throw;
             }
         }

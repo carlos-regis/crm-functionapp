@@ -1,5 +1,5 @@
-﻿using Microsoft.Azure.WebJobs.Host;
-using Microsoft.Crm.Sdk.Messages;
+﻿using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Extensions.Logging;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Microsoft.Xrm.Tooling.Connector;
@@ -13,39 +13,36 @@ namespace Ttms.Crm.FunctionApp.Helper
     public static class Common
     {
         /// <summary>
-        /// Convert JSON to plugin (webhook) execution context
+        /// Convert JSON into a remote execution context
         /// </summary>
-        /// <param name="log"></param>
-        /// <param name="jsonContent"></param>
-        /// <returns>Execution Context</returns>
-        public static RemoteExecutionContext GetContext(TraceWriter log, string jsonContent)
+        /// <param name="_logger"></param>
+        /// <param name="jsonContext">JSON String</param>
+        /// <returns>Xrm sdk RemoteExecutionContext</returns>
+        public static RemoteExecutionContext GetContext(ILogger _logger, string jsonContext)
         {
-            log.Info(string.Format("Calling {0}...", nameof(GetContext)));
-
             RemoteExecutionContext context = null;
             try
             {
-                using (var memoryStream = new MemoryStream(Encoding.Unicode.GetBytes(jsonContent)))
+                using (var memoryStream = new MemoryStream(Encoding.Unicode.GetBytes(jsonContext)))
                 {
                     DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(RemoteExecutionContext));
                     context = (RemoteExecutionContext)jsonSerializer.ReadObject(memoryStream);
                 }
 
-                log.Info(string.Format("{0}: returning context.", nameof(GetContext)));
                 return context;
             }
             catch (Exception ex)
             {
-                log.Error(string.Format("{0}: {1}.", nameof(GetContext), ex.ToString()));
+                _logger.LogError(string.Format("{0}: {1}.", nameof(GetContext), ex.ToString()));
                 throw;
             }
         }
 
         /// <summary>Get variable stored for local and remote in application settings.</summary>
-        /// <param name="log"></param>
+        /// <param name="_logger"></param>
         /// <param name="envVarName"></param>
         /// <returns>The value associated with the environment variable</returns>
-        public static string GetEnvironmentVariables(TraceWriter log, string envVarName)
+        public static string GetEnvironmentVariables(string envVarName)
         {
             return Environment.GetEnvironmentVariable(envVarName, EnvironmentVariableTarget.Process);
         }

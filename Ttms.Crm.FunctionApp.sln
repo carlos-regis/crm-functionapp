@@ -7,7 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ttms.Crm.FunctionApp.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ttms.Crm.ConsoleApp", "src\Ttms.Crm.ConsoleApp\Ttms.Crm.ConsoleApp.csproj", "{CBEB0D6D-65C0-48AD-AF3E-FFF44A1DF559}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ttms.Crm.FunctionApp", "src\Ttms.Crm.FunctionApp\Ttms.Crm.FunctionApp.csproj", "{90B4A186-F472-4D7A-85DB-297D4EF52F16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ttms.Crm.FunctionApp", "src\Ttms.Crm.FunctionApp\Ttms.Crm.FunctionApp.csproj", "{90B4A186-F472-4D7A-85DB-297D4EF52F16}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{72EA8C72-F114-4488-8464-1E2973D03F25}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{68B0855F-CC29-4699-9352-8F30803F93FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +34,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CA2D2579-0CC8-41EB-98EF-4469000D1E6A} = {72EA8C72-F114-4488-8464-1E2973D03F25}
+		{CBEB0D6D-65C0-48AD-AF3E-FFF44A1DF559} = {72EA8C72-F114-4488-8464-1E2973D03F25}
+		{90B4A186-F472-4D7A-85DB-297D4EF52F16} = {68B0855F-CC29-4699-9352-8F30803F93FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3F1A5D0C-5D38-48EA-B215-9618A60862EE}
