@@ -8,9 +8,9 @@ namespace Ttms.Crm.FunctionApp.Account
 {
     internal static class Account
     {
-        internal static void PostAccountUpdate(TraceWriter log, RemoteExecutionContext context, CrmServiceClient crmServiceClient)
+        internal static void PostAccountUpdate(TraceWriter log, RemoteExecutionContext context, CrmServiceClient service)
         {
-            log.Info("Calling PostAccountUpdate...");
+            log.Info(string.Format("Calling {0}...", nameof(PostAccountUpdate)));
 
             try
             {
@@ -23,23 +23,28 @@ namespace Ttms.Crm.FunctionApp.Account
                         Id = entity.Id
                     };
 
-                    account["name"] = entity.GetAttributeValue<string>("address1_country");
+                    log.Info(string.Format("{0}: entity name '{1}'.", nameof(PostAccountUpdate), entity.GetAttributeValue<string>("name")));
+                    account["name"] = string.Format("{0} from {1}",
+                                                    entity.GetAttributeValue<string>("name"),
+                                                    entity.GetAttributeValue<string>("address1_country"));
 
-                    crmServiceClient.Update(account);
-                    log.Info("PostAccountUpdate completed!");
+                    service.Update(account);
+                    log.Info(string.Format("{0} completed.", nameof(PostAccountUpdate)));
                 }
                 else
                 {
-                    log.Error("No 'address1_country' in the current context");
+                    log.Warning("No 'address1_country' in the current context");
                 }
             }
             catch (FaultException<OrganizationServiceFault> ex)
             {
-                log.Error(string.Format("PostAccountUpdate: {0}", ex.ToString()));
+                log.Error(string.Format("{0}: {1}.", nameof(PostAccountUpdate), ex.ToString()));
+                throw;
             }
             catch (Exception ex)
             {
-                log.Error(string.Format("PostAccountUpdate: {0}", ex.ToString()));
+                log.Error(string.Format("{0}: {1}.", nameof(PostAccountUpdate), ex.ToString()));
+                throw;
             }
         }
     }

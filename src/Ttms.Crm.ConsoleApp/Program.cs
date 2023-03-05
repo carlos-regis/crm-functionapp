@@ -3,7 +3,6 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Tooling.Connector;
 using System;
 using System.Configuration;
-using System.Diagnostics;
 
 namespace Ttms.Crm.ConsoleApp
 {
@@ -11,54 +10,68 @@ namespace Ttms.Crm.ConsoleApp
     {
         static void Main(string[] _)
         {
-            IOrganizationService crmService = CrmConnection();
 
-            Entity account = new Entity("account");
-            account["name"] = "My New Account";
+            CrmServiceClient service = null;
+            try
+            {
+                service = Connect();
 
-            Console.WriteLine("Creating new account");
-            crmService.Create(account);
+                Entity account = new Entity("account");
+                account["name"] = "My New Account";
 
-            Console.ReadKey();
+                Console.WriteLine("Creating new account...");
+                service.Create(account);
+                Console.WriteLine("New account successfully created!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Error: {0}.", ex.ToString()));
+                throw;
+            }
+            finally
+            {
+                service?.Dispose();
+
+                Console.WriteLine("\nPress <Enter> to exit.");
+                Console.ReadLine();
+            }
         }
 
-        private static IOrganizationService CrmConnection()
+        private static CrmServiceClient Connect()
         {
-            IOrganizationService crmService = null;
-
+            CrmServiceClient service;
             try
             {
                 Console.WriteLine("Setting up Dynamics 365 connection");
 
-                CrmServiceClient crmConnection = new CrmServiceClient(ConfigurationManager.ConnectionStrings["crmConnectionString"].ConnectionString);
-
-                crmService = crmConnection.OrganizationWebProxyClient != null ?
-                                    (IOrganizationService)crmConnection.OrganizationWebProxyClient :
-                                    (IOrganizationService)crmConnection.OrganizationServiceProxy;
+                service = new CrmServiceClient(ConfigurationManager.ConnectionStrings["crmConnectionString"].ConnectionString);
 
                 Console.WriteLine("Validating Connection");
 
-                if (crmService != null)
+                if (service.IsReady)
                 {
-                    Guid userid = ((WhoAmIResponse)crmService.Execute(new WhoAmIRequest())).UserId;
+                    Guid userid = ((WhoAmIResponse)service.Execute(new WhoAmIRequest())).UserId;
 
                     if (userid != Guid.Empty)
                     {
-                        Console.WriteLine($"Information: {userid} connected successfully!");
+                        Console.WriteLine(string.Format("User '{0}' connected successfully!", userid));
+                        return service;
                     }
                 }
                 else
                 {
-                    Console.WriteLine($"Error: Failed to Established Connection!");
+                    Console.WriteLine(string.Format("{0}", service.LastCrmError));
+                    throw service.LastCrmException;
                 }
-
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error: Exception caught - {ex.Message}");
+                Console.WriteLine(string.Format("{0}", ex.ToString()));
+                throw;
             }
 
-            return crmService;
+            return service;
         }
     }
 }
+

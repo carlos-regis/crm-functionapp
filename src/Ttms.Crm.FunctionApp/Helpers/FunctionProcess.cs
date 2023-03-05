@@ -10,7 +10,7 @@ namespace Ttms.Crm.FunctionApp.Helper
     {
         internal static void ProcessContext(TraceWriter log, RemoteExecutionContext context, CrmServiceClient crmServiceClient)
         {
-            log.Info("Calling FunctionProcess.ProcessContext");
+            log.Info(string.Format("Calling {0}...", nameof(ProcessContext)));
 
             try
             {
@@ -34,12 +34,15 @@ namespace Ttms.Crm.FunctionApp.Helper
             }
             catch (FaultException<OrganizationServiceFault> ex)
             {
-                log.Error(string.Format("ProcessContext: {0}", ex.Message));
+                log.Error(string.Format("{0}: {1}.", nameof(ProcessContext), ex.ToString()));
+                throw;
             }
             catch (Exception ex)
             {
-                log.Error(string.Format("ProcessContext: {0}", ex.Message));
+                log.Error(string.Format("{0}: {1}.", nameof(ProcessContext), ex.ToString()));
+                throw;
             }
         }
     }
 }
+
