@@ -9,9 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{72EA8C72
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{68B0855F-CC29-4699-9352-8F30803F93FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ttms.Crm.FunctionApp.V4", "src\Ttms.Crm.FunctionApp.V4\Ttms.Crm.FunctionApp.V4.csproj", "{85991166-DF22-4FD4-8DB8-D60D6E2C4EE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ttms.Crm.FunctionApp.V4", "src\Ttms.Crm.FunctionApp.V4\Ttms.Crm.FunctionApp.V4.csproj", "{85991166-DF22-4FD4-8DB8-D60D6E2C4EE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ttms.Crm.FunctionApp.Tests", "tests\Ttms.Crm.FunctionApp.Tests\Ttms.Crm.FunctionApp.Tests.csproj", "{17FD6E7C-D5DB-43B6-87A8-8568A32C2014}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ttms.Crm.FunctionApp.Tests", "tests\Ttms.Crm.FunctionApp.Tests\Ttms.Crm.FunctionApp.Tests.csproj", "{17FD6E7C-D5DB-43B6-87A8-8568A32C2014}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Ttms.Crm.FunctionApp.Shared", "src\Ttms.Crm.FunctionApp.Shared\Ttms.Crm.FunctionApp.Shared.shproj", "{A0115000-5725-407E-8D30-1AA7F62ABC81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,8 +41,12 @@ Global
 		{90B4A186-F472-4D7A-85DB-297D4EF52F16} = {68B0855F-CC29-4699-9352-8F30803F93FE}
 		{85991166-DF22-4FD4-8DB8-D60D6E2C4EE9} = {68B0855F-CC29-4699-9352-8F30803F93FE}
 		{17FD6E7C-D5DB-43B6-87A8-8568A32C2014} = {72EA8C72-F114-4488-8464-1E2973D03F25}
+		{A0115000-5725-407E-8D30-1AA7F62ABC81} = {68B0855F-CC29-4699-9352-8F30803F93FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3F1A5D0C-5D38-48EA-B215-9618A60862EE}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\Ttms.Crm.FunctionApp.Shared\Ttms.Crm.FunctionApp.Shared.projitems*{a0115000-5725-407e-8d30-1aa7f62abc81}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal
