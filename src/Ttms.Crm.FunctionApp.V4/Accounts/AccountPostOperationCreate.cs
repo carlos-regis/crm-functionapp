@@ -4,9 +4,9 @@ using Microsoft.Xrm.Sdk;
 using System;
 using System.ServiceModel;
 
-namespace Ttms.Crm.FunctionApp.V4.Account
+namespace Ttms.Crm.FunctionApp.V4.Accounts
 {
-    internal static class Account
+    internal static class AccountPostOperationCreate
     {
         internal static void PostAccountUpdate(ILogger _logger, RemoteExecutionContext context, ServiceClient service)
         {

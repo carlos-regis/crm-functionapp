@@ -52,7 +52,7 @@ namespace Ttms.Crm.FunctionApp.V4.Triggers
 
                 Guid _contactid = service.Create(contact);
 
-                return new OkObjectResult(string.Format("Contact id: {0}", _contactid.ToString()));
+                return new OkObjectResult(string.Format("Account id: {0}", _contactid.ToString()));
             }
             catch (Exception ex)
             {
