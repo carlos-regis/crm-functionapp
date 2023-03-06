@@ -1,13 +1,14 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.PowerPlatform.Dataverse.Client;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.ServiceModel;
 
-namespace Ttms.Crm.FunctionApp.Account
+namespace Ttms.Crm.FunctionApp.V4.Account
 {
     internal static class Account
     {
-        internal static void PostAccountUpdate(ILogger _logger, RemoteExecutionContext context, CrmServiceClient service)
+        internal static void PostAccountUpdate(ILogger _logger, RemoteExecutionContext context, ServiceClient service)
         {
             _logger.LogInformation(string.Format("Calling {0}...", nameof(PostAccountUpdate)));
 
@@ -44,4 +45,3 @@ namespace Ttms.Crm.FunctionApp.Account
         }
     }
 }
-

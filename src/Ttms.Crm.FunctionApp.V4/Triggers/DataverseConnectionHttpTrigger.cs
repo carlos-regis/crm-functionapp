@@ -15,11 +15,9 @@ namespace Ttms.Crm.FunctionApp.V4.Triggers
     {
         [FunctionName(nameof(DataverseConnectionHttpTrigger))]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]
             HttpRequest req, ILogger _logger)
         {
-            _logger.LogInformation("{Function} function processed a request.", nameof(DataverseConnectionHttpTrigger));
-
             ServiceClient service = null;
 
             try
@@ -44,7 +42,7 @@ namespace Ttms.Crm.FunctionApp.V4.Triggers
                 string jsonContext = await req.ReadAsStringAsync();
                 _logger.LogInformation("{jsonContext}", jsonContext);
 
-                //FunctionProcess.ProcessContext(_logger, Common.GetContext(_logger, jsonContext), service);
+                FunctionProcess.ProcessContext(_logger, Common.GetContext(jsonContext), service);
 
                 Entity contact = new("contact")
                 {

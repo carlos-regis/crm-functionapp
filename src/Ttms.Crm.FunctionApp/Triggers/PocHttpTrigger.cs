@@ -40,7 +40,7 @@ namespace Ttms.Crm.FunctionApp.Triggers
                 string jsonContext = await req.ReadAsStringAsync();
                 _logger.LogInformation("{jsonContext}", jsonContext);
 
-                FunctionProcess.ProcessContext(_logger, Common.GetContext(_logger, jsonContext), service);
+                FunctionProcess.ProcessContext(_logger, Common.GetContext(jsonContext), service);
                 return new OkObjectResult(string.Empty);
             }
             catch (Exception ex)

@@ -1,13 +1,14 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.PowerPlatform.Dataverse.Client;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.ServiceModel;
 
-namespace Ttms.Crm.FunctionApp.Helpers
+namespace Ttms.Crm.FunctionApp.V4.Helpers
 {
     internal static class FunctionProcess
     {
-        internal static void ProcessContext(ILogger _logger, RemoteExecutionContext context, CrmServiceClient crmServiceClient)
+        internal static void ProcessContext(ILogger _logger, RemoteExecutionContext context, ServiceClient service)
         {
             _logger.LogInformation(string.Format("Calling {0}...", nameof(ProcessContext)));
 
@@ -21,10 +22,7 @@ namespace Ttms.Crm.FunctionApp.Helpers
                 switch (entityName.ToLower())
                 {
                     case "account":
-                        Account.Account.PostAccountUpdate(_logger, context, crmServiceClient);
-                        break;
-
-                    case "f1_workorder":
+                        Account.Account.PostAccountUpdate(_logger, context, service);
                         break;
 
                     default:
@@ -44,4 +42,3 @@ namespace Ttms.Crm.FunctionApp.Helpers
         }
     }
 }
-

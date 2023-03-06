@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -11,10 +10,9 @@ namespace Ttms.Crm.FunctionApp.Helpers
         /// <summary>
         /// Convert JSON into a remote execution context
         /// </summary>
-        /// <param name="_logger"></param>
         /// <param name="jsonContext">JSON String</param>
         /// <returns>Xrm sdk RemoteExecutionContext</returns>
-        public static RemoteExecutionContext GetContext(ILogger _logger, string jsonContext)
+        public static RemoteExecutionContext GetContext(string jsonContext)
         {
             RemoteExecutionContext context = null;
             try
@@ -29,8 +27,7 @@ namespace Ttms.Crm.FunctionApp.Helpers
             }
             catch (Exception ex)
             {
-                _logger.LogError("{Context}: {Exception}.", nameof(GetContext), ex.ToString());
-                throw;
+                throw new ArgumentOutOfRangeException(ex.Message);
             }
         }
 

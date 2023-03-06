@@ -3,11 +3,38 @@ using Microsoft.PowerPlatform.Dataverse.Client;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
+using System.IO;
+using System.Runtime.Serialization.Json;
+using System.Text;
 
 namespace Ttms.Crm.FunctionApp.V4.Helpers
 {
     public static class Common
     {
+        /// <summary>
+        /// Convert JSON into a remote execution context
+        /// </summary>
+        /// <param name="jsonContext">JSON String</param>
+        /// <returns>Xrm sdk RemoteExecutionContext</returns>
+        public static RemoteExecutionContext GetContext(string jsonContext)
+        {
+            RemoteExecutionContext context = null;
+            try
+            {
+                using (var memoryStream = new MemoryStream(Encoding.Unicode.GetBytes(jsonContext)))
+                {
+                    DataContractJsonSerializer jsonSerializer = new(typeof(RemoteExecutionContext));
+                    context = (RemoteExecutionContext)jsonSerializer.ReadObject(memoryStream);
+                }
+
+                return context;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentOutOfRangeException(ex.Message);
+            }
+        }
+
         /// <summary>Get variable stored for local and remote in application settings.</summary>
         /// <param name="envVarName"></param>
         /// <returns>The value associated with the environment variable</returns>
