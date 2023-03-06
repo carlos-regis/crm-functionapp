@@ -1,14 +1,10 @@
-﻿using Microsoft.Crm.Sdk.Messages;
-using Microsoft.Extensions.Logging;
-using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Query;
-using Microsoft.Xrm.Tooling.Connector;
+﻿using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
-namespace Ttms.Crm.FunctionApp.Helper
+namespace Ttms.Crm.FunctionApp.Helpers
 {
     public static class Common
     {
@@ -25,7 +21,7 @@ namespace Ttms.Crm.FunctionApp.Helper
             {
                 using (var memoryStream = new MemoryStream(Encoding.Unicode.GetBytes(jsonContext)))
                 {
-                    DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(RemoteExecutionContext));
+                    DataContractJsonSerializer jsonSerializer = new(typeof(RemoteExecutionContext));
                     context = (RemoteExecutionContext)jsonSerializer.ReadObject(memoryStream);
                 }
 
@@ -33,7 +29,7 @@ namespace Ttms.Crm.FunctionApp.Helper
             }
             catch (Exception ex)
             {
-                _logger.LogError(string.Format("{0}: {1}.", nameof(GetContext), ex.ToString()));
+                _logger.LogError("{Context}: {Exception}.", nameof(GetContext), ex.ToString());
                 throw;
             }
         }

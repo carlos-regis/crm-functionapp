@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.PowerPlatform.Dataverse.Client;
+using Microsoft.Xrm.Sdk;
 using System;
 using System.IdentityModel.Tokens;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 
-namespace Ttms.Crm.FunctionApp.Helpers
+namespace Ttms.Crm.FunctionApp.V4.Helpers
 {
     public class CrmConnection
     {
@@ -16,41 +18,40 @@ namespace Ttms.Crm.FunctionApp.Helpers
         }
 
         /// <summary>
-        /// Connect to the D365 Organization service using XRM tooling connector
+        /// Connect to the D365 Organization service using the Dataverse client
         /// </summary>
         /// <param name="connectionString">The name of the connection string to return</param>
         /// <returns>Organization service connection</returns>
-        public CrmServiceClient Connect(string connectionString)
+        public ServiceClient Connect(string connectionString)
         {
-            CrmServiceClient service = null;
+            ServiceClient service = null;
             try
             {
                 _logger.LogInformation("Setting up connection");
 
                 // Connect to the CRM web service using a connection string.
-                service = new CrmServiceClient(GetServiceConfiguration(connectionString));
+                service = new ServiceClient(GetServiceConfiguration(connectionString));
                 if (service.IsReady)
                 {
                     return service;
                 }
                 else
                 {
-                    if (service.LastCrmError.Contains(Constants.ERROR_UNABLE_TO_LOGIN))
+                    if (service.LastError.Contains(Constants.ERROR_UNABLE_TO_LOGIN))
                     {
-                        _logger.LogError(string.Format("{0}: {1}", nameof(Connect), service.LastCrmError));
-                        throw new InvalidOperationException(service.LastCrmError);
+                        _logger.LogError("{Function}: {Error}", nameof(Connect), service.LastError);
+                        throw new InvalidOperationException(service.LastError);
                     }
                     else
                     {
-                        _logger.LogError(string.Format("{0}: {1}", nameof(Connect), service.LastCrmException.ToString()));
-                        throw service.LastCrmException;
+                        _logger.LogError("{Function}: {Exception}", nameof(Connect), service.LastException.ToString());
+                        throw service.LastException;
                     }
                 }
             }
             catch (Exception ex) when (ex is TimeoutException || ex is SecurityTokenValidationException ||
-                                       ex is ExpiredSecurityTokenException || ex is MessageSecurityException ||
-                                       ex is SecurityNegotiationException || ex is SecurityAccessDeniedException ||
-                                       ex is FaultException<OrganizationServiceFault>)
+                                       ex is MessageSecurityException || ex is SecurityNegotiationException ||
+                                       ex is SecurityAccessDeniedException || ex is FaultException<OrganizationServiceFault>)
             {
                 HandleException(ex);
             }
@@ -70,7 +71,7 @@ namespace Ttms.Crm.FunctionApp.Helpers
         /// <param name="exception">The exception thrown</param>
         private void HandleException(Exception ex)
         {
-            _logger.LogError(string.Format("{0}: {1}.", nameof(Connect), ex.ToString()));
+            _logger.LogError("{Function}: {Exception}.", nameof(Connect), ex.ToString());
 
             if (ex.InnerException != null)
             {
@@ -112,7 +113,7 @@ namespace Ttms.Crm.FunctionApp.Helpers
         private static bool IsValidConnectionString(string connectionString)
         {
             // At a minimum, a connection string must contain one of these arguments.
-            return connectionString.Contains("URL=") ||
+            return connectionString.Contains("Url=") ||
                    connectionString.Contains("Server=") ||
                    connectionString.Contains("ServiceUri=");
         }
@@ -120,4 +121,3 @@ namespace Ttms.Crm.FunctionApp.Helpers
         #endregion Private Methods
     }
 }
-

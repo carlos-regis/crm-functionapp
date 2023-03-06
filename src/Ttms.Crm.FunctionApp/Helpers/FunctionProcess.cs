@@ -1,10 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Tooling.Connector;
 using System;
 using System.ServiceModel;
 
-namespace Ttms.Crm.FunctionApp.Helper
+namespace Ttms.Crm.FunctionApp.Helpers
 {
     internal static class FunctionProcess
     {
