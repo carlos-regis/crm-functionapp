@@ -5,8 +5,10 @@ using System;
 using System.IdentityModel.Tokens;
 using System.ServiceModel;
 using System.ServiceModel.Security;
+using Ttms.Crm.FunctionApp.V4.Common.Exceptions;
+using Ttms.Crm.FunctionApp.V4.Helpers;
 
-namespace Ttms.Crm.FunctionApp.V4.Helpers
+namespace Ttms.Crm.FunctionApp.V4.Services
 {
     public class CrmConnection
     {
@@ -53,31 +55,19 @@ namespace Ttms.Crm.FunctionApp.V4.Helpers
                                        ex is MessageSecurityException || ex is SecurityNegotiationException ||
                                        ex is SecurityAccessDeniedException || ex is FaultException<OrganizationServiceFault>)
             {
-                HandleException(ex);
+                _logger.LogError("{Function}: {Exception}.", nameof(Connect), ex.ToString());
+                CrmExceptions.HandleException(ex);
             }
             catch (Exception ex)
             {
-                HandleException(ex);
+                _logger.LogError("{Function}: {Exception}.", nameof(Connect), ex.ToString());
+                CrmExceptions.HandleException(ex);
             }
 
             return service;
         }
 
         #region Private Methods
-
-        /// <summary>
-        /// A function to manage exceptions thrown by the app
-        /// </summary>
-        /// <param name="exception">The exception thrown</param>
-        private void HandleException(Exception ex)
-        {
-            _logger.LogError("{Function}: {Exception}.", nameof(Connect), ex.ToString());
-
-            if (ex.InnerException != null)
-            {
-                HandleException(ex.InnerException);
-            }
-        }
 
         /// <summary>
         /// Gets a named connection string from App.config
@@ -88,7 +78,7 @@ namespace Ttms.Crm.FunctionApp.V4.Helpers
         {
             try
             {
-                string crmConnectionString = Common.GetEnvironmentVariables(connectionString);
+                string crmConnectionString = Utils.GetEnvironmentVariables(connectionString);
                 if (IsValidConnectionString(crmConnectionString))
                 {
                     return crmConnectionString;

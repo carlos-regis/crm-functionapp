@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ttms.Crm.FunctionApp", "src\Ttms.Crm.FunctionApp\Ttms.Crm.FunctionApp.csproj", "{90B4A186-F472-4D7A-85DB-297D4EF52F16}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{72EA8C72-F114-4488-8464-1E2973D03F25}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{68B0855F-CC29-4699-9352-8F30803F93FE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ttms.Crm.FunctionApp.V4", "src\Ttms.Crm.FunctionApp.V4\Ttms.Crm.FunctionApp.V4.csproj", "{85991166-DF22-4FD4-8DB8-D60D6E2C4EE9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ttms.Crm.FunctionApp.Tests", "tests\Ttms.Crm.FunctionApp.Tests\Ttms.Crm.FunctionApp.Tests.csproj", "{17FD6E7C-D5DB-43B6-87A8-8568A32C2014}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ttms.Crm.FunctionApp.UnitTests", "tests\Ttms.Crm.FunctionApp.UnitTests\Ttms.Crm.FunctionApp.UnitTests.csproj", "{17FD6E7C-D5DB-43B6-87A8-8568A32C2014}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Ttms.Crm.FunctionApp.Shared", "src\Ttms.Crm.FunctionApp.Shared\Ttms.Crm.FunctionApp.Shared.shproj", "{A0115000-5725-407E-8D30-1AA7F62ABC81}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ttms.Crm.FunctionApp.IntegrationTests", "tests\Ttms.Crm.FunctionApp.IntegrationTests\Ttms.Crm.FunctionApp.IntegrationTests.csproj", "{F0874BB1-2D90-4D3C-BBB0-76E5FF6AE14A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{90B4A186-F472-4D7A-85DB-297D4EF52F16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90B4A186-F472-4D7A-85DB-297D4EF52F16}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90B4A186-F472-4D7A-85DB-297D4EF52F16}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90B4A186-F472-4D7A-85DB-297D4EF52F16}.Release|Any CPU.Build.0 = Release|Any CPU
 		{85991166-DF22-4FD4-8DB8-D60D6E2C4EE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{85991166-DF22-4FD4-8DB8-D60D6E2C4EE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85991166-DF22-4FD4-8DB8-D60D6E2C4EE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,20 +29,25 @@ Global
 		{17FD6E7C-D5DB-43B6-87A8-8568A32C2014}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17FD6E7C-D5DB-43B6-87A8-8568A32C2014}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17FD6E7C-D5DB-43B6-87A8-8568A32C2014}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0874BB1-2D90-4D3C-BBB0-76E5FF6AE14A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0874BB1-2D90-4D3C-BBB0-76E5FF6AE14A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0874BB1-2D90-4D3C-BBB0-76E5FF6AE14A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0874BB1-2D90-4D3C-BBB0-76E5FF6AE14A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{90B4A186-F472-4D7A-85DB-297D4EF52F16} = {68B0855F-CC29-4699-9352-8F30803F93FE}
 		{85991166-DF22-4FD4-8DB8-D60D6E2C4EE9} = {68B0855F-CC29-4699-9352-8F30803F93FE}
 		{17FD6E7C-D5DB-43B6-87A8-8568A32C2014} = {72EA8C72-F114-4488-8464-1E2973D03F25}
 		{A0115000-5725-407E-8D30-1AA7F62ABC81} = {68B0855F-CC29-4699-9352-8F30803F93FE}
+		{F0874BB1-2D90-4D3C-BBB0-76E5FF6AE14A} = {72EA8C72-F114-4488-8464-1E2973D03F25}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3F1A5D0C-5D38-48EA-B215-9618A60862EE}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\Ttms.Crm.FunctionApp.Shared\Ttms.Crm.FunctionApp.Shared.projitems*{85991166-df22-4fd4-8db8-d60d6e2c4ee9}*SharedItemsImports = 5
 		src\Ttms.Crm.FunctionApp.Shared\Ttms.Crm.FunctionApp.Shared.projitems*{a0115000-5725-407e-8d30-1aa7f62abc81}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

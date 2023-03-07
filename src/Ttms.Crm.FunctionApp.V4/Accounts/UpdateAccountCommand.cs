@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk;
 using System;
+using Ttms.Crm.FunctionApp.Shared.EntityModel;
 
 namespace Ttms.Crm.FunctionApp.V4.Accounts
 {

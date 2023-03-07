@@ -8,6 +8,7 @@ using Microsoft.Xrm.Sdk;
 using System;
 using System.Threading.Tasks;
 using Ttms.Crm.FunctionApp.V4.Helpers;
+using Ttms.Crm.FunctionApp.V4.Services;
 
 namespace Ttms.Crm.FunctionApp.V4.Triggers
 {
@@ -16,33 +17,37 @@ namespace Ttms.Crm.FunctionApp.V4.Triggers
         [FunctionName(nameof(DataverseConnectionHttpTrigger))]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]
-            HttpRequest req, ILogger _logger)
+            HttpRequest req,
+            ILogger log)
         {
             ServiceClient service = null;
 
             try
             {
-                CrmConnection crmConnection = new(_logger);
+                CrmConnection crmConnection = new(log);
                 service = crmConnection.Connect("CrmConnectionString");
 
-                _logger.LogInformation("Microsoft Dynamics CRM version {Version}.", Common.GetVersion(service));
-                _logger.LogInformation("Organization Id: {Id}.", service.ConnectedOrgId);
-                _logger.LogInformation("Logged on user is {FullName}.", Common.GetUserFullName(service));
+                log.LogInformation("Microsoft Dynamics CRM version {Version}.", Utils.GetVersion(service));
+                log.LogInformation("Organization Id: {Id}.", service.ConnectedOrgId);
+                log.LogInformation("Logged on user is {FullName}.", Utils.GetUserFullName(service));
             }
             catch (Exception ex)
             {
-                _logger.LogError("{Function} - service connection: {Exception}.", nameof(DataverseConnectionHttpTrigger), ex.ToString());
+                log.LogError("{Function}: Could not connect to dataverse - {Exception}.", nameof(DataverseConnectionHttpTrigger), ex.ToString());
                 service?.Dispose();
 
-                return new NotFoundObjectResult(ex.Message);
+                return new ObjectResult(ex.Message)
+                {
+                    StatusCode = 401
+                };
             }
 
             try
             {
                 string jsonContext = await req.ReadAsStringAsync();
-                _logger.LogInformation("{jsonContext}", jsonContext);
+                log.LogInformation("{jsonContext}", jsonContext);
 
-                FunctionProcess.ProcessContext(_logger, Common.GetContext(jsonContext), service);
+                FunctionProcess.ProcessContext(log, Utils.GetContext(jsonContext), service);
 
                 Entity contact = new("contact")
                 {
@@ -56,7 +61,7 @@ namespace Ttms.Crm.FunctionApp.V4.Triggers
             }
             catch (Exception ex)
             {
-                _logger.LogError("{Function} - context processing: {Exception}.", nameof(DataverseConnectionHttpTrigger), ex.ToString());
+                log.LogError("{Function} - context processing: {Exception}.", nameof(DataverseConnectionHttpTrigger), ex.ToString());
                 return new BadRequestObjectResult(ex.Message);
             }
             finally

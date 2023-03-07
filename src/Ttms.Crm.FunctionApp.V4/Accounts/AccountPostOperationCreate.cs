@@ -8,9 +8,9 @@ namespace Ttms.Crm.FunctionApp.V4.Accounts
 {
     internal static class AccountPostOperationCreate
     {
-        internal static void PostAccountUpdate(ILogger _logger, RemoteExecutionContext context, ServiceClient service)
+        internal static void PostAccountUpdate(ILogger log, RemoteExecutionContext context, ServiceClient service)
         {
-            _logger.LogInformation(string.Format("Calling {0}...", nameof(PostAccountUpdate)));
+            log.LogInformation(string.Format("Calling {0}...", nameof(PostAccountUpdate)));
 
             try
             {
@@ -25,21 +25,21 @@ namespace Ttms.Crm.FunctionApp.V4.Accounts
                     account["name"] = entity.GetAttributeValue<string>("address1_country");
 
                     service.Update(account);
-                    _logger.LogInformation(string.Format("{0} completed.", nameof(PostAccountUpdate)));
+                    log.LogInformation(string.Format("{0} completed.", nameof(PostAccountUpdate)));
                 }
                 else
                 {
-                    _logger.LogWarning("No 'address1_country' in the current context");
+                    log.LogWarning("No 'address1_country' in the current context");
                 }
             }
             catch (FaultException<OrganizationServiceFault> ex)
             {
-                _logger.LogError(string.Format("{0}: {1}.", nameof(PostAccountUpdate), ex.ToString()));
+                log.LogError(string.Format("{0}: {1}.", nameof(PostAccountUpdate), ex.ToString()));
                 throw;
             }
             catch (Exception ex)
             {
-                _logger.LogError(string.Format("{0}: {1}.", nameof(PostAccountUpdate), ex.ToString()));
+                log.LogError(string.Format("{0}: {1}.", nameof(PostAccountUpdate), ex.ToString()));
                 throw;
             }
         }

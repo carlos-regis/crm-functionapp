@@ -3,18 +3,19 @@ using Microsoft.PowerPlatform.Dataverse.Client;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.ServiceModel;
+using Ttms.Crm.FunctionApp.V4.Accounts;
 
 namespace Ttms.Crm.FunctionApp.V4.Helpers
 {
     internal static class FunctionProcess
     {
-        internal static void ProcessContext(ILogger _logger, RemoteExecutionContext context, ServiceClient service)
+        internal static void ProcessContext(ILogger log, RemoteExecutionContext context, ServiceClient service)
         {
-            _logger.LogInformation(string.Format("Calling {0}...", nameof(ProcessContext)));
+            log.LogInformation(string.Format("Calling {0}...", nameof(ProcessContext)));
 
             try
             {
-                _logger.LogInformation(string.Format("Received: {0}", context.MessageName));
+                log.LogInformation(string.Format("Received: {0}", context.MessageName));
 
                 Entity entity = (Entity)context.InputParameters["Target"];
                 var entityName = entity.LogicalName;
@@ -22,7 +23,7 @@ namespace Ttms.Crm.FunctionApp.V4.Helpers
                 switch (entityName.ToLower())
                 {
                     case "account":
-                        Account.Account.PostAccountUpdate(_logger, context, service);
+                        AccountPostOperationCreate.PostAccountUpdate(log, context, service);
                         break;
 
                     default:
@@ -31,12 +32,12 @@ namespace Ttms.Crm.FunctionApp.V4.Helpers
             }
             catch (FaultException<OrganizationServiceFault> ex)
             {
-                _logger.LogError(string.Format("{0}: {1}.", nameof(ProcessContext), ex.ToString()));
+                log.LogError(string.Format("{0}: {1}.", nameof(ProcessContext), ex.ToString()));
                 throw;
             }
             catch (Exception ex)
             {
-                _logger.LogError(string.Format("{0}: {1}.", nameof(ProcessContext), ex.ToString()));
+                log.LogError(string.Format("{0}: {1}.", nameof(ProcessContext), ex.ToString()));
                 throw;
             }
         }

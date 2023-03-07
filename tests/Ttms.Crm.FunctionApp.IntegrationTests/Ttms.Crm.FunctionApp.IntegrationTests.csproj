@@ -1,15 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
     <IsPackable>false</IsPackable>
+    <UserSecretsId>e7b5477a-237d-40dd-9115-d6d74888a640</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FakeXrmEasy.v9" Version="3.2.0" />
+    <PackageReference Include="FakeXrmEasy.v9" Version="3.3.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
@@ -23,12 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Consents\" />
-    <Folder Include="Tasks\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\Ttms.Crm.FunctionApp.V4\Ttms.Crm.FunctionApp.V4.csproj" />
   </ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+		<None Update="appsettings.local.json" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
 
 </Project>

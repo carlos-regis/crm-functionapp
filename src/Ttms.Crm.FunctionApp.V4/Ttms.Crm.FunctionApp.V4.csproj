@@ -17,4 +17,5 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
   </ItemGroup>
+  <Import Project="..\Ttms.Crm.FunctionApp.Shared\Ttms.Crm.FunctionApp.Shared.projitems" Label="Shared" />
 </Project>

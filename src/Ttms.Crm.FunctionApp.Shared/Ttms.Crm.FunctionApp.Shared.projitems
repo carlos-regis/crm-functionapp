@@ -9,5 +9,42 @@
     <Import_RootNamespace>Ttms.Crm.FunctionApp.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Account.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\ActivityParty.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\alegri_autonumbercounter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Appointment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Btt_gratuity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Contact.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\CrmContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Email.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Opportunity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Orb_classificationbase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Orb_country.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Orb_machine.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Orb_productgroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Orb_productgroupclassification.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Orb_visitplanningbase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Product.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Quote.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\rbtt_apimonitor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\rbtt_appliance.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\rbtt_applicationid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\rbtt_bookoffeedback.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\rbtt_configurations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\rbtt_consent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\rbtt_consenttext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\rbtt_customermasterdataexchange.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\rbtt_delivernote.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\rbtt_delivernoteitem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\rbtt_processingactivity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\rbtt_productionplants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\SdkMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\SdkMessageProcessingStep.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\SystemUser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\SystemUserRoles.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Task.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\UoM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityModel\UoMSchedule.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OptionSets\OptionSets.cs" />
   </ItemGroup>
 </Project>

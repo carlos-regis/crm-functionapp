@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Ttms.Crm.FunctionApp.V4.Helpers
 {
-    public static class Common
+    public static class Utils
     {
         /// <summary>
         /// Convert JSON into a remote execution context
