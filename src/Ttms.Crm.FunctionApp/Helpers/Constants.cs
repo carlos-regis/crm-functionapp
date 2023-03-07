@@ -5,4 +5,3 @@
         public const string ERROR_UNABLE_TO_LOGIN = "Unable to login to Dynamics CRM";
     }
 }
-

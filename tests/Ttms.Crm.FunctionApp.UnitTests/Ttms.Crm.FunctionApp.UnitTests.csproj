@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Ttms.Crm.FunctionApp.V4\Ttms.Crm.FunctionApp.csproj" />
+    <ProjectReference Include="..\..\src\Ttms.Crm.FunctionApp\Ttms.Crm.FunctionApp.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Ttms.Crm.FunctionApp.V4": {
-      "commandName": "Project",
-      "commandLineArgs": "--port 8081 --verbose"
-    }
-  }
-}
