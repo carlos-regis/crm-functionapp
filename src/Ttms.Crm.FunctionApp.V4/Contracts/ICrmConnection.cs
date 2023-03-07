@@ -1,6 +1,6 @@
 ﻿using Microsoft.PowerPlatform.Dataverse.Client;
 
-namespace Ttms.Crm.FunctionApp.V4.Contracts
+namespace Ttms.Crm.FunctionApp.Contracts
 {
     public interface ICrmConnection
     {

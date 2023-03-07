@@ -4,7 +4,7 @@ using Microsoft.Xrm.Sdk;
 using System;
 using System.ServiceModel;
 
-namespace Ttms.Crm.FunctionApp.V4.Accounts
+namespace Ttms.Crm.FunctionApp.Accounts
 {
     internal static class AccountPostOperationCreate
     {

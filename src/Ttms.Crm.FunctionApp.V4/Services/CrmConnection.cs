@@ -5,11 +5,11 @@ using System;
 using System.IdentityModel.Tokens;
 using System.ServiceModel;
 using System.ServiceModel.Security;
-using Ttms.Crm.FunctionApp.V4.Common.Exceptions;
-using Ttms.Crm.FunctionApp.V4.Contracts;
-using Ttms.Crm.FunctionApp.V4.Helpers;
+using Ttms.Crm.FunctionApp.Common.Exceptions;
+using Ttms.Crm.FunctionApp.Contracts;
+using Ttms.Crm.FunctionApp.Helpers;
 
-namespace Ttms.Crm.FunctionApp.V4.Services
+namespace Ttms.Crm.FunctionApp.Services
 {
     public class CrmConnection : ICrmConnection
     {

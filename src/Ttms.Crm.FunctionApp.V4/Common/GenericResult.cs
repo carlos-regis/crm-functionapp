@@ -1,4 +1,4 @@
-﻿namespace Ttms.Crm.FunctionApp.V4.Common
+﻿namespace Ttms.Crm.FunctionApp.Common
 {
     public class GenericResult
     {

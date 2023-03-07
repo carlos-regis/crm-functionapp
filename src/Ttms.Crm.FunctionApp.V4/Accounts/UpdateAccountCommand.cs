@@ -2,7 +2,7 @@
 using System;
 using Ttms.Crm.FunctionApp.Shared.EntityModel;
 
-namespace Ttms.Crm.FunctionApp.V4.Accounts
+namespace Ttms.Crm.FunctionApp.Accounts
 {
     public class UpdateAccountCommand
     {

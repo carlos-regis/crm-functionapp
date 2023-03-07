@@ -3,9 +3,9 @@ using Microsoft.PowerPlatform.Dataverse.Client;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.ServiceModel;
-using Ttms.Crm.FunctionApp.V4.Accounts;
+using Ttms.Crm.FunctionApp.Accounts;
 
-namespace Ttms.Crm.FunctionApp.V4.Helpers
+namespace Ttms.Crm.FunctionApp.Helpers
 {
     internal static class FunctionProcess
     {

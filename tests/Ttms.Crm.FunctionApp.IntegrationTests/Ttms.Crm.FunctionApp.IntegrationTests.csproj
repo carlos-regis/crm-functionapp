@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Ttms.Crm.FunctionApp.V4\Ttms.Crm.FunctionApp.V4.csproj" />
+    <ProjectReference Include="..\..\src\Ttms.Crm.FunctionApp.V4\Ttms.Crm.FunctionApp.csproj" />
   </ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug'">

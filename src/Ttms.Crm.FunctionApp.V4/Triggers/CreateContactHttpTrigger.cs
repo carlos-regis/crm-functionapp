@@ -7,15 +7,14 @@ using Microsoft.PowerPlatform.Dataverse.Client;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using System;
-using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Ttms.Crm.FunctionApp.Common;
+using Ttms.Crm.FunctionApp.Services;
 using Ttms.Crm.FunctionApp.Shared.EntityModel;
-using Ttms.Crm.FunctionApp.V4.Common;
-using Ttms.Crm.FunctionApp.V4.Services;
 
-[assembly: InternalsVisibleTo("Ttms.Crm.FunctionApp.UnitTests")]
-namespace Ttms.Crm.FunctionApp.V4.Triggers
+//[assembly: InternalsVisibleTo("Ttms.Crm.FunctionApp.UnitTests")]
+namespace Ttms.Crm.FunctionApp.Triggers
 {
     public static class CreateContactHttpTrigger
     {
@@ -71,7 +70,7 @@ namespace Ttms.Crm.FunctionApp.V4.Triggers
             }
         }
 
-        internal static async Task<GenericResult> CreateContactAsync(ServiceClient service,
+        internal static async Task<GenericResult> CreateContactAsync(IOrganizationServiceAsync2 service,
                                                                      string firstName,
                                                                      string lastName,
                                                                      string email)
@@ -86,7 +85,7 @@ namespace Ttms.Crm.FunctionApp.V4.Triggers
             return GenericResult.Success();
         }
 
-        internal static GenericResult CreateContact(ServiceClient service,
+        internal static GenericResult CreateContact(IOrganizationService service,
                                                     string firstName,
                                                     string lastName,
                                                     string email)
@@ -101,7 +100,7 @@ namespace Ttms.Crm.FunctionApp.V4.Triggers
             return GenericResult.Success();
         }
 
-        internal static GenericResult CreateContactRequest(ServiceClient service,
+        internal static GenericResult CreateRequestContact(IOrganizationService service,
                                                            string firstName,
                                                            string lastName,
                                                            string email)

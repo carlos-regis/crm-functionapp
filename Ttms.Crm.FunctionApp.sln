@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{72EA8C72
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{68B0855F-CC29-4699-9352-8F30803F93FE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ttms.Crm.FunctionApp.V4", "src\Ttms.Crm.FunctionApp.V4\Ttms.Crm.FunctionApp.V4.csproj", "{85991166-DF22-4FD4-8DB8-D60D6E2C4EE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ttms.Crm.FunctionApp", "src\Ttms.Crm.FunctionApp.V4\Ttms.Crm.FunctionApp.csproj", "{85991166-DF22-4FD4-8DB8-D60D6E2C4EE9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ttms.Crm.FunctionApp.UnitTests", "tests\Ttms.Crm.FunctionApp.UnitTests\Ttms.Crm.FunctionApp.UnitTests.csproj", "{17FD6E7C-D5DB-43B6-87A8-8568A32C2014}"
 EndProject

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ttms.Crm.FunctionApp.V4.Common.Exceptions
+namespace Ttms.Crm.FunctionApp.Common.Exceptions
 {
     public static class CrmExceptions
     {

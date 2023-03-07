@@ -4,18 +4,17 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.PowerPlatform.Dataverse.Client;
-using Microsoft.Xrm.Sdk;
 using System;
 using System.Threading.Tasks;
-using Ttms.Crm.FunctionApp.V4.Helpers;
-using Ttms.Crm.FunctionApp.V4.Services;
+using Ttms.Crm.FunctionApp.Helpers;
+using Ttms.Crm.FunctionApp.Services;
 
-namespace Ttms.Crm.FunctionApp.V4.Triggers
+namespace Ttms.Crm.FunctionApp.Triggers
 {
-    public class DataverseConnectionHttpTrigger
+    public static class DataverseConnectionHttpTrigger
     {
         [FunctionName(nameof(DataverseConnectionHttpTrigger))]
-        public async Task<IActionResult> Run(
+        public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]
             HttpRequest req,
             ILogger log)
@@ -27,9 +26,9 @@ namespace Ttms.Crm.FunctionApp.V4.Triggers
                 CrmConnection crmConnection = new(log, "CrmConnectionString");
                 service = crmConnection.Connect();
 
-                log.LogInformation("Microsoft Dynamics CRM version {Version}.", Utils.GetVersion(service));
+                log.LogInformation("Microsoft Dynamics CRM version {Version}.", CrmUtils.GetVersion(service));
                 log.LogInformation("Organization Id: {Id}.", service.ConnectedOrgId);
-                log.LogInformation("Logged on user is {FullName}.", Utils.GetUserFullName(service));
+                log.LogInformation("Logged on user is {FullName}.", CrmUtils.GetUserFullName(service));
             }
             catch (Exception ex)
             {
@@ -44,17 +43,9 @@ namespace Ttms.Crm.FunctionApp.V4.Triggers
                 string jsonContext = await req.ReadAsStringAsync();
                 log.LogInformation("{jsonContext}", jsonContext);
 
-                FunctionProcess.ProcessContext(log, Utils.GetContext(jsonContext), service);
+                FunctionProcess.ProcessContext(log, CrmUtils.GetContext(jsonContext), service);
 
-                Entity contact = new("contact")
-                {
-                    ["firstname"] = "Rey",
-                    ["lastname"] = "Dynamics CRM"
-                };
-
-                Guid _contactid = service.Create(contact);
-
-                return new OkObjectResult(string.Format("Account id: {0}", _contactid.ToString()));
+                return new OkObjectResult("Success");
             }
             catch (Exception ex)
             {
