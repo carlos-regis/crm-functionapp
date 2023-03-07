@@ -6,48 +6,64 @@ using System.IdentityModel.Tokens;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 using Ttms.Crm.FunctionApp.V4.Common.Exceptions;
+using Ttms.Crm.FunctionApp.V4.Contracts;
 using Ttms.Crm.FunctionApp.V4.Helpers;
 
 namespace Ttms.Crm.FunctionApp.V4.Services
 {
-    public class CrmConnection
+    public class CrmConnection : ICrmConnection
     {
+        private readonly string _connectionString;
         private readonly ILogger _logger;
+        private ServiceClient _service;
 
-        public CrmConnection(ILogger logger)
+        public CrmConnection(ILogger logger, string connectionString)
         {
+            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>
-        /// Connect to the D365 Organization service using the Dataverse client
+        /// Connect to the D365 Organization _service using the Dataverse client
         /// </summary>
-        /// <param name="connectionString">The name of the connection string to return</param>
-        /// <returns>Organization service connection</returns>
-        public ServiceClient Connect(string connectionString)
+        /// <returns>Organization _service connection</returns>
+        public ServiceClient Connect()
         {
-            ServiceClient service = null;
+            if (_service != null)
+            {
+                return _service;
+            }
+
+            _service = GetService();
+            return _service;
+        }
+
+        #region Private Methods
+
+        private ServiceClient GetService()
+        {
+            _logger.LogInformation("Connecting to dataverse");
+
+            ServiceClient serviceClient = null;
+
             try
             {
-                _logger.LogInformation("Setting up connection");
-
-                // Connect to the CRM web service using a connection string.
-                service = new ServiceClient(GetServiceConfiguration(connectionString));
-                if (service.IsReady)
+                serviceClient = new ServiceClient(GetServiceConfiguration(_connectionString));
+                if (serviceClient.IsReady)
                 {
-                    return service;
+                    return serviceClient;
                 }
                 else
                 {
-                    if (service.LastError.Contains(Constants.ERROR_UNABLE_TO_LOGIN))
+                    if (serviceClient.LastError.Contains(Constants.ERROR_UNABLE_TO_LOGIN))
                     {
-                        _logger.LogError("{Function}: {Error}", nameof(Connect), service.LastError);
-                        throw new InvalidOperationException(service.LastError);
+                        _logger.LogError("{Function}: {Error}", nameof(GetService), serviceClient.LastError);
+                        throw new InvalidOperationException(serviceClient.LastError);
                     }
                     else
                     {
-                        _logger.LogError("{Function}: {Exception}", nameof(Connect), service.LastException.ToString());
-                        throw service.LastException;
+                        _logger.LogError("{Function}: {Exception}", nameof(GetService), serviceClient.LastException.ToString());
+                        throw serviceClient.LastException;
                     }
                 }
             }
@@ -55,19 +71,17 @@ namespace Ttms.Crm.FunctionApp.V4.Services
                                        ex is MessageSecurityException || ex is SecurityNegotiationException ||
                                        ex is SecurityAccessDeniedException || ex is FaultException<OrganizationServiceFault>)
             {
-                _logger.LogError("{Function}: {Exception}.", nameof(Connect), ex.ToString());
+                _logger.LogError("{Function}: {Exception}.", nameof(GetService), ex.ToString());
                 CrmExceptions.HandleException(ex);
             }
             catch (Exception ex)
             {
-                _logger.LogError("{Function}: {Exception}.", nameof(Connect), ex.ToString());
+                _logger.LogError("{Function}: {Exception}.", nameof(GetService), ex.ToString());
                 CrmExceptions.HandleException(ex);
             }
 
-            return service;
+            return serviceClient;
         }
-
-        #region Private Methods
 
         /// <summary>
         /// Gets a named connection string from App.config
@@ -85,7 +99,7 @@ namespace Ttms.Crm.FunctionApp.V4.Services
                 }
                 else
                 {
-                    throw new ArgumentException(string.Format("{0}: Invalid connection string '{1}'.", nameof(GetServiceConfiguration), crmConnectionString));
+                    throw new ArgumentException(string.Format("{0}: Invalid connection string '{1}' provided.", nameof(GetServiceConfiguration), crmConnectionString));
                 }
             }
             catch (Exception ex)

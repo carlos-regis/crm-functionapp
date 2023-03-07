@@ -24,8 +24,8 @@ namespace Ttms.Crm.FunctionApp.V4.Triggers
 
             try
             {
-                CrmConnection crmConnection = new(log);
-                service = crmConnection.Connect("CrmConnectionString");
+                CrmConnection crmConnection = new(log, "CrmConnectionString");
+                service = crmConnection.Connect();
 
                 log.LogInformation("Microsoft Dynamics CRM version {Version}.", Utils.GetVersion(service));
                 log.LogInformation("Organization Id: {Id}.", service.ConnectedOrgId);
@@ -36,10 +36,7 @@ namespace Ttms.Crm.FunctionApp.V4.Triggers
                 log.LogError("{Function}: Could not connect to dataverse - {Exception}.", nameof(DataverseConnectionHttpTrigger), ex.ToString());
                 service?.Dispose();
 
-                return new ObjectResult(ex.Message)
-                {
-                    StatusCode = 401
-                };
+                return new UnauthorizedObjectResult(ex.Message);
             }
 
             try

@@ -4,10 +4,14 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.PowerPlatform.Dataverse.Client;
-using Newtonsoft.Json;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Messages;
 using System;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Ttms.Crm.FunctionApp.Shared.EntityModel;
+using Ttms.Crm.FunctionApp.V4.Common;
 using Ttms.Crm.FunctionApp.V4.Services;
 
 [assembly: InternalsVisibleTo("Ttms.Crm.FunctionApp.UnitTests")]
@@ -22,43 +26,98 @@ namespace Ttms.Crm.FunctionApp.V4.Triggers
             ILogger log)
         {
             log.LogInformation("{Function} function processed a request.", nameof(CreateContactHttpTrigger));
-            ServiceClient service = null;
 
+            ServiceClient service = null;
             try
             {
-                CrmConnection crmConnection = new(log);
-                service = crmConnection.Connect("CrmConnectionString");
+                CrmConnection crmConnection = new(log, "CrmConnectionString");
+                service = crmConnection.Connect();
             }
             catch (Exception ex)
             {
-                log.LogError("{Function}: Could not connect to dataverse - {Exception}.", nameof(DataverseConnectionHttpTrigger), ex.ToString());
+                log.LogError("{Function}: Could not connect to dataverse - {Exception}.", nameof(CreateContactHttpTrigger), ex.ToString());
                 service?.Dispose();
 
-                return new ObjectResult(ex.Message)
-                {
-                    StatusCode = 401
-                };
+                return new UnauthorizedObjectResult(ex.Message);
             }
 
-            string firstName = req.Query["firstname"];
-            string lastName = req.Query["lastname"];
-            string email = req.Query["email"];
+            try
+            {
+                string requestBody = await req.ReadAsStringAsync();
+                JsonElement requestData = JsonSerializer.Deserialize<JsonElement>(requestBody);
+                string firstName = requestData
+                    .GetProperty("firstName")
+                    .GetString();
 
-            //string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            string requestBody = await req.ReadAsStringAsync();
-            dynamic requestData = JsonConvert.DeserializeObject(requestBody);
-            firstName ??= requestData?.firstName;
-            lastName ??= requestData?.lastName;
-            email ??= requestData?.email;
+                string lastName = requestData
+                    .GetProperty("lastName")
+                    .GetString();
 
+                string email = requestData
+                    .GetProperty("email")
+                    .GetString();
 
+                GenericResult result = await CreateContactAsync(service, firstName, lastName, email);
+                return new OkObjectResult(JsonSerializer.Serialize(result));
+            }
+            catch (Exception ex)
+            {
+                log.LogError("{Function}: context processing - {Exception}.", nameof(CreateContactHttpTrigger), ex.ToString());
+                return new BadRequestObjectResult(ex.Message);
+            }
+            finally
+            {
+                service?.Dispose();
+            }
+        }
 
+        internal static async Task<GenericResult> CreateContactAsync(ServiceClient service,
+                                                                     string firstName,
+                                                                     string lastName,
+                                                                     string email)
+        {
+            await service.CreateAsync(new Contact()
+            {
+                ["firstname"] = firstName,
+                ["lastname"] = lastName,
+                ["emailaddress1"] = email
+            });
 
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
+            return GenericResult.Success();
+        }
 
-            return new OkObjectResult(responseMessage);
+        internal static GenericResult CreateContact(ServiceClient service,
+                                                    string firstName,
+                                                    string lastName,
+                                                    string email)
+        {
+            service.Create(new Entity("contact")
+            {
+                ["firstname"] = firstName,
+                ["lastname"] = lastName,
+                ["emailaddress1"] = email
+            });
+
+            return GenericResult.Success();
+        }
+
+        internal static GenericResult CreateContactRequest(ServiceClient service,
+                                                           string firstName,
+                                                           string lastName,
+                                                           string email)
+        {
+            service.Execute(new CreateRequest()
+            {
+                Target =
+                new Entity("contact")
+                {
+                    ["firstname"] = firstName,
+                    ["lastname"] = lastName,
+                    ["emailaddress1"] = email
+                }
+            });
+
+            return GenericResult.Success();
         }
     }
 }
