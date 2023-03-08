@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.PowerPlatform.Dataverse.Client;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.ServiceModel;
+using Ttms.Crm.FunctionApp.Services.Contracts;
 
 namespace Ttms.Crm.FunctionApp.Accounts
 {
     internal static class AccountPostOperationCreate
     {
-        internal static void PostAccountUpdate(ILogger log, RemoteExecutionContext context, ServiceClient service)
+        internal static void PostAccountUpdate(ILogger log, RemoteExecutionContext context, ICrmService service)
         {
             log.LogInformation(string.Format("Calling {0}...", nameof(PostAccountUpdate)));
 
@@ -24,7 +24,7 @@ namespace Ttms.Crm.FunctionApp.Accounts
 
                     account["name"] = entity.GetAttributeValue<string>("address1_country");
 
-                    service.Update(account);
+                    service.UpdateAsync(account);
                     log.LogInformation(string.Format("{0} completed.", nameof(PostAccountUpdate)));
                 }
                 else

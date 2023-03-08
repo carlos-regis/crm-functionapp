@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.PowerPlatform.Dataverse.Client;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.ServiceModel;
 using Ttms.Crm.FunctionApp.Accounts;
+using Ttms.Crm.FunctionApp.Services.Contracts;
 
 namespace Ttms.Crm.FunctionApp.Helpers
 {
     internal static class FunctionProcess
     {
-        internal static void ProcessContext(ILogger log, RemoteExecutionContext context, ServiceClient service)
+        internal static void ProcessContext(ILogger log, RemoteExecutionContext context, ICrmService service)
         {
             log.LogInformation(string.Format("Calling {0}...", nameof(ProcessContext)));
 
