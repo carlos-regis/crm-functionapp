@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk.Query;
+using Ttms.Crm.FunctionApp.Accounts;
 using Ttms.Crm.FunctionApp.IntegrationTests.Common;
 using Ttms.Crm.FunctionApp.Shared.EntityModel;
-using Ttms.Crm.FunctionApp.Accounts;
 
 namespace Ttms.Crm.FunctionApp.IntegrationTests.Accounts
 {
@@ -20,7 +20,7 @@ namespace Ttms.Crm.FunctionApp.IntegrationTests.Accounts
             var sut = new UpdateAccountCommand(_service)
             {
                 AccountId = _account.Id,
-                Name = "CR LLC"
+                Name = "CR LLC - Zeca"
             };
             sut.Execute();
 

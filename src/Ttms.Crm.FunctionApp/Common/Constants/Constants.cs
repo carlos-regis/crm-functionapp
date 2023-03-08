@@ -1,4 +1,4 @@
-﻿namespace Ttms.Crm.FunctionApp.Helpers
+﻿namespace Ttms.Crm.FunctionApp.Common.Constants
 {
     public static class Constants
     {

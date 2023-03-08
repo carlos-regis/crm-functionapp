@@ -7,8 +7,8 @@ using Microsoft.Xrm.Sdk;
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Ttms.Crm.FunctionApp.Models;
-using Ttms.Crm.FunctionApp.Services.Contracts;
+using Ttms.Crm.FunctionApp.Domain.Models;
+using Ttms.Crm.FunctionApp.Domain.Services.Contracts;
 
 namespace Ttms.Crm.FunctionApp.Triggers
 {

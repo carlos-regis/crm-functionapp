@@ -6,14 +6,14 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Accounts
 {
     public class UpdateAccountCommandTests : FakeContextTestsBase
     {
-        private Account? _account;
+        private readonly Account? _account;
         private readonly Guid _accountId = Guid.NewGuid();
 
-        private void CreateTestContext()
+        public UpdateAccountCommandTests()
         {
             _account = new()
             {
-                Id = Guid.NewGuid(),
+                Id = _accountId,
                 Name = "Dynamics Value SL"
             };
         }
@@ -22,14 +22,13 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Accounts
         public void Execute_UpdateAccountName_GetSameUpdatedAccountName()
         {
             // Arrange
-            CreateTestContext();
             _context.Initialize(_account);
 
             // Act
             var sut = new UpdateAccountCommand(_service)
             {
                 AccountId = _accountId,
-                Name = "Jose"
+                Name = "CR LLC - Zeca"
             };
             sut.Execute();
 
@@ -37,7 +36,7 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Accounts
             var accountUpdated = _context.CreateQuery<Account>().FirstOrDefault();
 
             // Assert
-            Assert.Equal("Jose", accountUpdated?.Name);
+            Assert.Equal(sut.Name, accountUpdated?.Name);
         }
     }
 }

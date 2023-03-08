@@ -9,12 +9,12 @@ using System.IdentityModel.Tokens;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 using System.Threading.Tasks;
+using Ttms.Crm.FunctionApp.Common.Constants;
 using Ttms.Crm.FunctionApp.Common.Exceptions;
 using Ttms.Crm.FunctionApp.Configurations;
-using Ttms.Crm.FunctionApp.Helpers;
-using Ttms.Crm.FunctionApp.Services.Contracts;
+using Ttms.Crm.FunctionApp.Domain.Services.Contracts;
 
-namespace Ttms.Crm.FunctionApp.Services
+namespace Ttms.Crm.FunctionApp.Domain.Services
 {
     public class CrmService : ICrmService
     {
@@ -28,9 +28,16 @@ namespace Ttms.Crm.FunctionApp.Services
             {
                 return;
             }
-            _crmService = GetService(configuration.Value.ConnectionString);
 
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _crmService = GetService(configuration.Value.ConnectionString);
+        }
+
+        public CrmService(IOrganizationServiceAsync2 crmService,
+                          ILogger<ICrmService> logger)
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _crmService = crmService ?? throw new ArgumentNullException(nameof(crmService));
         }
 
         public async Task<Guid> CreateAsync(Entity entity)
@@ -57,7 +64,7 @@ namespace Ttms.Crm.FunctionApp.Services
             await _crmService.DeleteAsync(entityName, id);
         }
 
-        Task<OrganizationResponse> ICrmService.ExecuteAsync(OrganizationRequest request)
+        public Task<OrganizationResponse> ExecuteAsync(OrganizationRequest request)
         {
             throw new NotImplementedException();
         }
@@ -90,7 +97,7 @@ namespace Ttms.Crm.FunctionApp.Services
         /// <returns>Organization service </returns>
         private IOrganizationServiceAsync2 GetService(string connectionString)
         {
-            _logger.LogInformation("Connecting to dataverse");
+            _logger.LogInformation("Connecting to dataverse...");
 
             ServiceClient serviceClient = null;
 

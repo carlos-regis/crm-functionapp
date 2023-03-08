@@ -3,7 +3,7 @@ using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Threading.Tasks;
 
-namespace Ttms.Crm.FunctionApp.Services.Contracts
+namespace Ttms.Crm.FunctionApp.Domain.Services.Contracts
 {
     public interface ICrmService
     {

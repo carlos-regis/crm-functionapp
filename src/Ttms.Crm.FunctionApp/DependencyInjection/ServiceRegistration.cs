@@ -3,8 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using Ttms.Crm.FunctionApp.Configurations;
 using Ttms.Crm.FunctionApp.DependencyInjection;
-using Ttms.Crm.FunctionApp.Services;
-using Ttms.Crm.FunctionApp.Services.Contracts;
+using Ttms.Crm.FunctionApp.Domain.Services;
+using Ttms.Crm.FunctionApp.Domain.Services.Contracts;
 
 [assembly: FunctionsStartup(typeof(ServiceRegistration))]
 namespace Ttms.Crm.FunctionApp.DependencyInjection

@@ -1,4 +1,4 @@
-﻿namespace Ttms.Crm.FunctionApp.Models
+﻿namespace Ttms.Crm.FunctionApp.Domain.Models
 {
     public class CrmContactRequest
     {

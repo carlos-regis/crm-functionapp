@@ -2,7 +2,7 @@
 using Microsoft.Xrm.Sdk;
 using System;
 using System.ServiceModel;
-using Ttms.Crm.FunctionApp.Services.Contracts;
+using Ttms.Crm.FunctionApp.Domain.Services.Contracts;
 
 namespace Ttms.Crm.FunctionApp.Accounts
 {

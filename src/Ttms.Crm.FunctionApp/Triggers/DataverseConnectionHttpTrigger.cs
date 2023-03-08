@@ -5,8 +5,8 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
-using Ttms.Crm.FunctionApp.Helpers;
-using Ttms.Crm.FunctionApp.Services.Contracts;
+using Ttms.Crm.FunctionApp.Domain.Helpers;
+using Ttms.Crm.FunctionApp.Domain.Services.Contracts;
 
 namespace Ttms.Crm.FunctionApp.Triggers
 {

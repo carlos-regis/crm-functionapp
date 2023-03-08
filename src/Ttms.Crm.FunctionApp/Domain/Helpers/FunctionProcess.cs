@@ -3,9 +3,9 @@ using Microsoft.Xrm.Sdk;
 using System;
 using System.ServiceModel;
 using Ttms.Crm.FunctionApp.Accounts;
-using Ttms.Crm.FunctionApp.Services.Contracts;
+using Ttms.Crm.FunctionApp.Domain.Services.Contracts;
 
-namespace Ttms.Crm.FunctionApp.Helpers
+namespace Ttms.Crm.FunctionApp.Domain.Helpers
 {
     internal static class FunctionProcess
     {

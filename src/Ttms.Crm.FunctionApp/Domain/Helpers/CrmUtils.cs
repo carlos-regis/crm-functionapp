@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
-namespace Ttms.Crm.FunctionApp.Helpers
+namespace Ttms.Crm.FunctionApp.Domain.Helpers
 {
     public static class CrmUtils
     {
