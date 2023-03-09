@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using Ttms.Crm.FunctionApp.Common;
 using Ttms.Crm.FunctionApp.Domain.Helpers;
 using Ttms.Crm.FunctionApp.Domain.Services.Contracts;
+using Ttms.Crm.FunctionApp.Shared;
+using Ttms.Crm.FunctionApp.Shared.EntityModel;
 
 namespace Ttms.Crm.FunctionApp.Triggers
 {
@@ -33,14 +35,21 @@ namespace Ttms.Crm.FunctionApp.Triggers
 
             try
             {
-                string jsonContext = await req.ReadAsStringAsync();
-                log.LogInformation("{jsonContext}", jsonContext);
+                string requestBody = await req.ReadAsStringAsync();
+                log.LogInformation("{requestBody }", requestBody);
 
-                _context = CrmUtils.GetContext(jsonContext);
+                _context = CrmUtils.GetRemoteExecutionContextFromJson(requestBody);
                 log.LogInformation("{Context}", _context);
 
-                if (!CrmUtils.ValidateContext(_context, log))
+
+                if (!CrmUtils.ValidateContext(_context,
+                                              Account.EntityLogicalName,
+                                              log,
+                                              out Entity entity,
+                                              out Entity postImage))
                 {
+                    PerformBusinessLogic(_context.Mode, entity, postImage);
+
                     return new JsonResult(OperationResult.FailureResult("Invalid context received."))
                     {
                         StatusCode = (int)HttpStatusCode.BadRequest
@@ -59,6 +68,27 @@ namespace Ttms.Crm.FunctionApp.Triggers
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest
                 };
+            }
+        }
+
+        internal void PerformPostOperationAccountLogic(int contextMode,
+                                                       Entity entity,
+                                                       Entity postImage)
+        {
+            try
+            {
+                if (contextMode == (int)SdkMessageProcessingStepMode.Asynchronous)
+                {
+                    //
+                }
+                else
+                {
+                    //
+                }
+            }
+            catch (Exception ex)
+            {
+                //
             }
         }
     }

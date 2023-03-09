@@ -32,4 +32,10 @@
     <ProjectReference Include="..\..\src\Ttms.Crm.FunctionApp\Ttms.Crm.FunctionApp.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Helpers\Data\AccountUpdate.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

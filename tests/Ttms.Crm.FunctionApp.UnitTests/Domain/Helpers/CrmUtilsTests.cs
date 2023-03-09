@@ -1,30 +1,55 @@
 ﻿using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Xrm.Sdk;
 using Ttms.Crm.FunctionApp.Domain.Helpers;
+using Ttms.Crm.FunctionApp.Shared.EntityModel;
+using Ttms.Crm.FunctionApp.UnitTests.Helpers;
 
 namespace Ttms.Crm.FunctionApp.UnitTests.Domain.Helpers
 {
     public class CrmUtilsTests
     {
+        #region ValidateContextTests
 
-        [Theory]
-        [InlineData("{\"MessageName\": \"Create\", \"Depth\": 1, \"Stage\": 20}")]
-        [InlineData("{\"MessageName\": \"Update\", \"Depth\": 2, \"Stage\": 50}")]
-        [InlineData("{\"MessageName\": \"Create\", \"Depth\": 3}")]
-        [InlineData("{\"MessageName\": \"Update\", \"Depth\": 5}")]
-        [InlineData("{\"MessageName\": \"Delete\"}")]
-        [InlineData("{\"MessageName\": \"Retrieve\"}")]
-        [InlineData("{\"InvalidKey\": \"InvalidValue\"}")]
-        public void ValidateContext_InvalidContext_False(string jsonContext)
+        [Fact]
+        public void ValidateContext_JsonFileAccountUpdate_TrueNotNullEntityNullPostImage()
+        {
+            // Arrange
+            string jsonContext = Utils.LoadData(Constants.AccountUpdateJsonFile);
+
+            // Act
+            bool sut = CrmUtils.ValidateContext(CrmUtils.GetRemoteExecutionContextFromJson(jsonContext),
+                                                Account.EntityLogicalName,
+                                                NullLogger.Instance,
+                                                out Entity entity,
+                                                out Entity postImage);
+
+            // Assert
+            Assert.True(sut);
+            Assert.NotNull(entity);
+            Assert.Null(postImage);
+        }
+
+        [Fact]
+        public void ValidateContext_NullInputParametersTarget_FalseNullEntityNullPostImage()
         {
             // Arrange
 
             // Act
-            bool sut = CrmUtils.ValidateContext(CrmUtils.GetContext(jsonContext), NullLogger.Instance);
+            bool sut = CrmUtils.ValidateContext(new RemoteExecutionContext(),
+                                                Account.EntityLogicalName,
+                                                NullLogger.Instance,
+                                                out Entity entity,
+                                                out Entity postImage);
 
             // Assert
             Assert.False(sut);
+            Assert.Null(entity);
+            Assert.Null(postImage);
         }
+
+        #endregion ValidateContextTests
+
+        #region GetContextTests
 
         [Fact]
         public void GetContext_ValidJson_CorrectRemoteExecutionContext()
@@ -33,7 +58,7 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Domain.Helpers
             string jsonContext = "{\"Depth\": 2, \"MessageName\": \"Update\"}";
 
             // Act
-            RemoteExecutionContext sut = CrmUtils.GetContext(jsonContext);
+            RemoteExecutionContext sut = CrmUtils.GetRemoteExecutionContextFromJson(jsonContext);
 
             // Act
             Assert.IsType<RemoteExecutionContext>(sut);
@@ -50,7 +75,9 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Domain.Helpers
             // Arrange
 
             // Act & Assert
-            Assert.Throws<ArgumentException>(() => CrmUtils.GetContext(jsonContext));
+            Assert.Throws<ArgumentException>(() => CrmUtils.GetRemoteExecutionContextFromJson(jsonContext));
         }
+
+        #endregion GetContextTests
     }
 }

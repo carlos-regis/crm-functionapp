@@ -16,5 +16,16 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Helpers
 
             return mockRequest.Object;
         }
+
+        public static string LoadData(string fileName)
+        {
+            var directory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            if (directory == null)
+            {
+                return string.Empty;
+            }
+
+            return File.ReadAllText(Path.Combine(directory, fileName));
+        }
     }
 }

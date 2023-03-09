@@ -6,6 +6,7 @@ using Ttms.Crm.FunctionApp.Common;
 using Ttms.Crm.FunctionApp.Domain.Services;
 using Ttms.Crm.FunctionApp.Triggers;
 using Ttms.Crm.FunctionApp.UnitTests.Common;
+using Ttms.Crm.FunctionApp.UnitTests.Helpers;
 
 namespace Ttms.Crm.FunctionApp.UnitTests.Triggers
 {
@@ -22,6 +23,28 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Triggers
         {
             return new AccountPostOperationHttpTrigger(
                 this.fakeCrmService);
+        }
+
+        [Fact]
+        public void Run_JsonFileAccountUpdate_SuccessResult()
+        {
+            // Arrange
+            var accountPostOperationHttpTrigger = this.CreateAccountPostOperationHttpTrigger();
+            HttpRequest request = Utils.CreateMockHttpRequest(Utils.LoadData(Constants.AccountUpdateJsonFile));
+
+            // Act
+            var sut = accountPostOperationHttpTrigger.Run(request, NullLogger.Instance).Result as JsonResult;
+
+            // Assert
+            Assert.NotNull(sut);
+
+            Assert.Equal((int)HttpStatusCode.OK, sut.StatusCode);
+
+            var result = sut.Value as OperationResult;
+            Assert.NotNull(result);
+            Assert.True(result.Success);
+            Assert.Null(result.FailureMessage);
+            Assert.Null(result.Exception);
         }
 
         [Fact]
