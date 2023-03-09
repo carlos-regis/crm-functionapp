@@ -3,14 +3,26 @@ using Microsoft.Xrm.Sdk;
 using Ttms.Crm.FunctionApp.Domain.Models;
 using Ttms.Crm.FunctionApp.Domain.Services;
 using Ttms.Crm.FunctionApp.Shared.EntityModel;
-using Ttms.Crm.FunctionApp.Triggers;
+using Ttms.Crm.FunctionApp.Triggers.Demo;
 using Ttms.Crm.FunctionApp.UnitTests.Common;
 using Task = System.Threading.Tasks.Task;
 
-namespace Ttms.Crm.FunctionApp.UnitTests.Contacts
+namespace Ttms.Crm.FunctionApp.UnitTests.Triggers.Demo
 {
     public class CreateContactHttpTriggerTests : FakeContextTestsBase
     {
+        private readonly CrmService fakeCrmService;
+
+        public CreateContactHttpTriggerTests()
+        {
+            fakeCrmService = new(_service, new NullLogger<CrmService>());
+        }
+
+        private CreateContactHttpTrigger CreateCreateContactHttpTrigger()
+        {
+            return new CreateContactHttpTrigger(fakeCrmService);
+        }
+
         [Fact]
         public async Task CreateContactAsync_CreateContact_GetSameContact()
         {
@@ -22,13 +34,11 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Contacts
                 ["emailaddress1"] = "zeca.unittest@gmail.com"
             };
 
-            CrmService crmService = new(_service, new NullLogger<CrmService>());
-            CreateContactHttpTrigger createContactHttpTrigger = new(crmService);
+            var createContactHttpTrigger = CreateCreateContactHttpTrigger();
 
             //// Act
             var sut = await createContactHttpTrigger.CreateContactAsync(contact);
             var contacts = _context.CreateQuery<Contact>().ToList();
-            //var contacts = _context.CreateQuery("contact").ToList();
 
             // Assert
             Assert.IsType<CrmResponse>(sut);

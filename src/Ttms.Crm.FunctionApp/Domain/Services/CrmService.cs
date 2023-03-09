@@ -64,17 +64,17 @@ namespace Ttms.Crm.FunctionApp.Domain.Services
             await _crmService.DeleteAsync(entityName, id);
         }
 
-        public Task<OrganizationResponse> ExecuteAsync(OrganizationRequest request)
-        {
-            throw new NotImplementedException();
-        }
+        //public async Task<OrganizationResponse> ExecuteAsync(OrganizationRequest request)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>Obtain information about the logged on user from the web service.</summary>
         /// <param name="service">The service to use to get the user's full name.</param>
         /// <returns>Logged on user's full name</returns>
-        public string GetUserFullName()
+        public async Task<string> GetUserFullNameAsync()
         {
-            Guid userid = ((WhoAmIResponse)_crmService.Execute(new WhoAmIRequest())).UserId;
+            Guid userid = ((WhoAmIResponse)await _crmService.ExecuteAsync(new WhoAmIRequest())).UserId;
             Entity systemUser = _crmService.Retrieve("systemuser", userid, new ColumnSet("fullname"));
 
             return systemUser.GetAttributeValue<string>("fullname");
@@ -83,9 +83,9 @@ namespace Ttms.Crm.FunctionApp.Domain.Services
         /// <summary> Retrieve the version of Microsoft Dynamics CRM. </summary>
         /// <param name="service">The service to use to get the version.</param>
         /// <returns>Dynamics 365 version</returns>
-        public string GetVersion()
+        public async Task<string> GetVersionAsync()
         {
-            return ((RetrieveVersionResponse)_crmService.Execute(new RetrieveVersionRequest())).Version;
+            return ((RetrieveVersionResponse)await _crmService.ExecuteAsync(new RetrieveVersionRequest())).Version;
         }
 
         #region Private Methods

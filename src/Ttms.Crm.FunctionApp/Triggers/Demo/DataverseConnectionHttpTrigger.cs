@@ -4,11 +4,13 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Net;
 using System.Threading.Tasks;
-using Ttms.Crm.FunctionApp.Domain.Helpers;
+using Ttms.Crm.FunctionApp.Common;
+using Ttms.Crm.FunctionApp.Domain.Models;
 using Ttms.Crm.FunctionApp.Domain.Services.Contracts;
 
-namespace Ttms.Crm.FunctionApp.Triggers
+namespace Ttms.Crm.FunctionApp.Triggers.Demo
 {
     public class DataverseConnectionHttpTrigger
     {
@@ -29,20 +31,28 @@ namespace Ttms.Crm.FunctionApp.Triggers
 
             try
             {
-                log.LogInformation("Microsoft Dynamics CRM version {Version}.", _crmService.GetVersion());
-                log.LogInformation("Logged on user is {FullName}.", _crmService.GetUserFullName());
+                string crmVersion = await _crmService.GetVersionAsync();
+                string userFullName = await _crmService.GetUserFullNameAsync();
 
-                string jsonContext = await req.ReadAsStringAsync();
-                log.LogInformation("{jsonContext}", jsonContext);
+                log.LogInformation("Microsoft Dynamics CRM version {Version}.", crmVersion);
+                log.LogInformation("Logged on user is {FullName}.", userFullName);
 
-                FunctionProcess.ProcessContext(log, CrmUtils.GetContext(jsonContext), _crmService);
-
-                return new OkObjectResult("Success");
+                return new JsonResult(new CrmSystemResponse()
+                {
+                    Version = crmVersion,
+                    UserFullName = userFullName
+                })
+                {
+                    StatusCode = (int)HttpStatusCode.OK
+                };
             }
             catch (Exception ex)
             {
                 log.LogError("{Function}: Could not connect to the organization service - {Exception}.", nameof(DataverseConnectionHttpTrigger), ex.ToString());
-                return new BadRequestObjectResult(ex.Message);
+                return new JsonResult(OperationResult.ExceptionResult(ex))
+                {
+                    StatusCode = (int)HttpStatusCode.Unauthorized
+                };
             }
         }
     }

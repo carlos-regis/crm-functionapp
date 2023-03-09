@@ -11,8 +11,8 @@ namespace Ttms.Crm.FunctionApp.Domain.Services.Contracts
         Task<Entity> RetrieveAsync(string entityName, Guid id, ColumnSet columnSet);
         Task UpdateAsync(Entity entity);
         Task DeleteAsync(string entityName, Guid id);
-        Task<OrganizationResponse> ExecuteAsync(OrganizationRequest request);
-        string GetUserFullName();
-        string GetVersion();
+        //Task<OrganizationResponse> ExecuteAsync(OrganizationRequest request);
+        Task<string> GetUserFullNameAsync();
+        Task<string> GetVersionAsync();
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Ttms.Crm.FunctionApp.Domain.Models;
 using Ttms.Crm.FunctionApp.Domain.Services.Contracts;
 
-namespace Ttms.Crm.FunctionApp.Triggers
+namespace Ttms.Crm.FunctionApp.Triggers.Demo
 {
     public class CreateContactHttpTrigger
     {
@@ -34,7 +34,6 @@ namespace Ttms.Crm.FunctionApp.Triggers
                 string requestBody = await req.ReadAsStringAsync();
                 JsonElement requestData = JsonSerializer.Deserialize<JsonElement>(requestBody);
 
-                // TODO: Refactor to return as per Operation Result pattern
                 return new JsonResult(await CreateContactAsync(CreateEntity(requestData)));
             }
             catch (Exception ex)

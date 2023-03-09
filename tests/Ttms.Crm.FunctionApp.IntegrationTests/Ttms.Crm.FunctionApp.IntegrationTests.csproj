@@ -28,6 +28,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\Ttms.Crm.FunctionApp\Ttms.Crm.FunctionApp.csproj" />
+	  <ProjectReference Include="..\Ttms.Crm.FunctionApp.UnitTests\Ttms.Crm.FunctionApp.UnitTests.csproj" />
 	</ItemGroup>
 
 </Project>
