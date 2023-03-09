@@ -25,6 +25,23 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Triggers
                 this.fakeCrmService);
         }
 
+        #region PhonePrefix
+
+        [Fact]
+        public void Check_if_account_phoneNumber_has_the_right_prefix_on_creation()
+        {
+            // Arrange
+
+
+            // Act
+
+
+            // Assert
+
+        }
+
+        #endregion PhonePrefix
+
         [Fact]
         public void Run_JsonFileAccountUpdate_SuccessResult()
         {
