@@ -40,6 +40,11 @@ namespace Ttms.Crm.FunctionApp.Domain.Services
             _crmService = crmService ?? throw new ArgumentNullException(nameof(crmService));
         }
 
+        public IOrganizationServiceAsync2 GetOrganizationService()
+        {
+            return _crmService;
+        }
+
         public async Task<Guid> CreateAsync(Entity entity)
         {
             _logger.LogInformation("Creating Entity with Id: '{Id}'", entity.Id);
@@ -68,6 +73,14 @@ namespace Ttms.Crm.FunctionApp.Domain.Services
         //{
         //    throw new NotImplementedException();
         //}
+
+        /// <summary>Obtain information about the logged on user from the web service.</summary>
+        /// <param name="service">The service to use to get the user's full name.</param>
+        /// <returns>Logged on user's full name</returns>
+        public async Task<Guid> GetUserIdAsync()
+        {
+            return ((WhoAmIResponse)await _crmService.ExecuteAsync(new WhoAmIRequest())).UserId;
+        }
 
         /// <summary>Obtain information about the logged on user from the web service.</summary>
         /// <param name="service">The service to use to get the user's full name.</param>

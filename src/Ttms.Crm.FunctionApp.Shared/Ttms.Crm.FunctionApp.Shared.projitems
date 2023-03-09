@@ -9,6 +9,13 @@
     <Import_RootNamespace>Ttms.Crm.FunctionApp.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BusinessLogic\AccountLogic\Events\PostOperation\PostOperationAccountLogicAsync.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BusinessLogic\AccountLogic\Events\PostOperation\PostOperationAccountLogicSync.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BusinessLogic\AccountLogic\Filter\AccountFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BusinessLogic\AccountLogic\Filter\IAccountFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BusinessLogic\AccountLogic\Logic\CalculateABCStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BusinessLogic\AccountLogic\Logic\CMDInterface.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BusinessLogic\AccountLogic\Logic\PhonePrefix.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Account.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EntityModel\ActivityParty.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EntityModel\alegri_autonumbercounter.cs" />
@@ -45,7 +52,21 @@
     <Compile Include="$(MSBuildThisFileDirectory)EntityModel\Task.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EntityModel\UoM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EntityModel\UoMSchedule.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\RequestCMD.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CustomerMasterDataModels.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OptionSets\OptionSets.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginRegistrationAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repos\Accounts\AccountRepos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repos\Accounts\IAccountRepos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repos\BoschSites\BoschSiteRepos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repos\BoschSites\IBoschSiteRepos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repos\ClassificationBases\ClassificationBaseRepos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repos\ClassificationBases\IClassificationBaseRepos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repos\ConfigurationParameters\ConfigurationParameterRepos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repos\ConfigurationParameters\IConfigurationParameterRepos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repos\Countries\CountryRepos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repos\Countries\ICountryRepos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repos\CustomerMasterDataExchange\CustomerMasterDataExchangeRepos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repos\CustomerMasterDataExchange\ICustomerMasterDataExchangeRepos.cs" />
   </ItemGroup>
 </Project>

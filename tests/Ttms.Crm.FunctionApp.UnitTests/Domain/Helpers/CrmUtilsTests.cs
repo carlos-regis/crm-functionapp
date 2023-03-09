@@ -21,11 +21,13 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Domain.Helpers
                                                 Account.EntityLogicalName,
                                                 NullLogger.Instance,
                                                 out Entity entity,
+                                                out Entity preImage,
                                                 out Entity postImage);
 
             // Assert
             Assert.True(sut);
             Assert.NotNull(entity);
+            Assert.Null(preImage);
             Assert.Null(postImage);
         }
 
@@ -39,11 +41,13 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Domain.Helpers
                                                 Account.EntityLogicalName,
                                                 NullLogger.Instance,
                                                 out Entity entity,
+                                                out Entity preImage,
                                                 out Entity postImage);
 
             // Assert
             Assert.False(sut);
             Assert.Null(entity);
+            Assert.Null(preImage);
             Assert.Null(postImage);
         }
 

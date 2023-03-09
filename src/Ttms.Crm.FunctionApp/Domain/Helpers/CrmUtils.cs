@@ -20,9 +20,11 @@ namespace Ttms.Crm.FunctionApp.Domain.Helpers
                                            string entityLogicalName,
                                            ILogger log,
                                            out Entity entity,
+                                           out Entity preImage,
                                            out Entity postImage)
         {
             entity = null;
+            preImage = null;
             postImage = null;
 
             if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
@@ -55,6 +57,12 @@ namespace Ttms.Crm.FunctionApp.Domain.Helpers
                     return false;
                 }
                 log.LogInformation("Context Stage: {Stage}", context.Stage);
+
+                if (context.PreEntityImages != null && context.PreEntityImages.Contains("PreImage"))
+                {
+                    preImage = context.PreEntityImages["PreImage"];
+                    log.LogInformation("PreImage id is: {Id}", preImage.Id);
+                }
 
                 if (context.PostEntityImages != null && context.PostEntityImages.Contains("PostImage"))
                 {

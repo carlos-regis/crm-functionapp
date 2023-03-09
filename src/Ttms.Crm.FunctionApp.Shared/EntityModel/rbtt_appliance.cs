@@ -13,7 +13,7 @@ namespace Ttms.Crm.FunctionApp.Shared.EntityModel
     }
 
     /// <summary>
-    /// Use it to store appliances (serial numbers) coming from the Trace-ability interface or even coming from the Partner Program interface
+    /// Use it to store appliances (serial numbers) coming from the LogInformation-ability interface or even coming from the Partner Program interface
     /// </summary>
     [System.Runtime.Serialization.DataContractAttribute()]
     [Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("rbtt_appliance")]

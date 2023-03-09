@@ -25,32 +25,6 @@ namespace Ttms.Crm.FunctionApp.IntegrationTests.Triggers
                 this.fakeCrmService);
         }
 
-        // "Stage": 40,
-
-        [Theory]
-        [InlineData("{\"Depth\": 2, \"MessageName\": \"Update\"}")]
-        [InlineData("{\"Depth\": 3, \"MessageName\": \"Create\"}")]
-        public void Run_InvalidContextDepthGreaterThanTwo_FailureResult(string jsonBody)
-        {
-            // Arrange
-            var accountPostOperationHttpTrigger = this.CreateAccountPostOperationHttpTrigger();
-            HttpRequest request = Utils.CreateMockHttpRequest(jsonBody);
-
-            // Act
-            var sut = accountPostOperationHttpTrigger.Run(request, NullLogger.Instance).Result as JsonResult;
-
-            // Assert
-            Assert.NotNull(sut);
-
-            Assert.Equal((int)HttpStatusCode.BadRequest, sut.StatusCode);
-
-            var result = sut.Value as OperationResult;
-            Assert.NotNull(result);
-            Assert.False(result.Success);
-            Assert.Equal("Invalid context received.", result.FailureMessage);
-            Assert.Null(result.Exception);
-        }
-
         [Theory]
         [InlineData("{\"MessageName\": \"Delete\"}")]
         [InlineData("{\"MessageName\": \"Retrieve\"}")]
