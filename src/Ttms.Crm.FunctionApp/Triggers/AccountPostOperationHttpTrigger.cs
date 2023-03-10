@@ -32,7 +32,7 @@ namespace Ttms.Crm.FunctionApp.Triggers
             HttpRequest req,
             ILogger log)
         {
-            RemoteExecutionContext _context;
+            RemoteExecutionContext context;
             log.LogInformation("The {Function} function processed a request.", nameof(AccountPostOperationHttpTrigger));
 
             try
@@ -40,18 +40,17 @@ namespace Ttms.Crm.FunctionApp.Triggers
                 string requestBody = await req.ReadAsStringAsync();
                 log.LogInformation("{requestBody }", requestBody);
 
-                _context = CrmUtils.GetRemoteExecutionContextFromJson(requestBody);
-                log.LogInformation("{Context}", _context);
+                context = CrmUtils.GetRemoteExecutionContextFromJson(requestBody);
+                log.LogInformation("{Context}", context);
 
-
-                if (!CrmUtils.ValidateContext(_context,
+                if (!CrmUtils.ValidateContext(context,
                                               Account.EntityLogicalName,
                                               log,
                                               out Entity entity,
                                               out Entity preImage,
                                               out Entity postImage))
                 {
-                    PerformPostOperationAccountLogic(_context.Mode, log, entity, preImage, postImage);
+                    PerformPostOperationAccountLogic(context.Mode, log, entity, preImage, postImage);
 
                     return new JsonResult(OperationResult.FailureResult("Invalid context received."))
                     {

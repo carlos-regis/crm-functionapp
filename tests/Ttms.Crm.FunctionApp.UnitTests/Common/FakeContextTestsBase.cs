@@ -8,19 +8,19 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Common
 {
     public abstract class FakeContextTestsBase
     {
-        protected readonly IXrmFakedContext _context;
-        protected readonly IOrganizationServiceAsync2 _service;
+        protected readonly IXrmFakedContext fakeContext;
+        protected readonly IOrganizationServiceAsync2 fakeService;
 
         protected FakeContextTestsBase()
         {
-            _context = MiddlewareBuilder
+            fakeContext = MiddlewareBuilder
                             .New()
                             .AddCrud()
                             .UseCrud()
                             .SetLicense(FakeXrmEasyLicense.NonCommercial)
                             .Build();
 
-            _service = _context.GetAsyncOrganizationService2();
+            fakeService = fakeContext.GetAsyncOrganizationService2();
         }
     }
 }

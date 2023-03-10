@@ -27,7 +27,7 @@ namespace Ttms.Crm.FunctionApp.Domain.Helpers
             preImage = null;
             postImage = null;
 
-            if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
+            if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Object)
             {
                 entity = (Entity)context.InputParameters["Target"];
                 if (entity.LogicalName != entityLogicalName)

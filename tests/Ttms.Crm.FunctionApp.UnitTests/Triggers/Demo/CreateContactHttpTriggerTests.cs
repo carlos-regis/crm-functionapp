@@ -15,7 +15,7 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Triggers.Demo
 
         public CreateContactHttpTriggerTests()
         {
-            fakeCrmService = new(_service, new NullLogger<CrmService>());
+            fakeCrmService = new(fakeService, new NullLogger<CrmService>());
         }
 
         private CreateContactHttpTrigger CreateCreateContactHttpTrigger()
@@ -38,7 +38,7 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Triggers.Demo
 
             //// Act
             var sut = await createContactHttpTrigger.CreateContactAsync(contact);
-            var contacts = _context.CreateQuery<Contact>().ToList();
+            var contacts = fakeContext.CreateQuery<Contact>().ToList();
 
             // Assert
             Assert.IsType<CrmResponse>(sut);

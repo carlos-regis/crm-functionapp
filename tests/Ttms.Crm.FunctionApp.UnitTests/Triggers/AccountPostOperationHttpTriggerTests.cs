@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Xrm.Sdk;
+using Newtonsoft.Json;
 using System.Net;
 using Ttms.Crm.FunctionApp.Common;
 using Ttms.Crm.FunctionApp.Domain.Services;
+using Ttms.Crm.FunctionApp.Shared.EntityModel;
 using Ttms.Crm.FunctionApp.Triggers;
 using Ttms.Crm.FunctionApp.UnitTests.Common;
 using Ttms.Crm.FunctionApp.UnitTests.Helpers;
+using Ttms.Crm.FunctionApp.UnitTests.Helpers.Serialization;
 
 namespace Ttms.Crm.FunctionApp.UnitTests.Triggers
 {
@@ -16,7 +20,7 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Triggers
 
         public AccountPostOperationHttpTriggerTests()
         {
-            this.fakeCrmService = new(_service, new NullLogger<CrmService>());
+            this.fakeCrmService = new(fakeService, new NullLogger<CrmService>());
         }
 
         private AccountPostOperationHttpTrigger CreateAccountPostOperationHttpTrigger()
@@ -28,16 +32,86 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Triggers
         #region PhonePrefix
 
         [Fact]
-        public void Check_if_account_phoneNumber_has_the_right_prefix_on_creation()
+        public void Run_CountryUpdate_AccountPhoneNumberHasCorrectPrefix()
         {
             // Arrange
+            Orb_country targetCountry = new()
+            {
+                Id = Guid.NewGuid(),
+                Orb_name = "Afghanistan",
+                rbtt_phoneprefix = "93"
+            };
 
+            Orb_country preTargetCountry = new()
+            {
+                Id = Guid.NewGuid(),
+                Orb_name = "Portugal",
+                rbtt_phoneprefix = "351"
+            };
+
+            Account targetEntity = new()
+            {
+                Id = Guid.NewGuid(),
+                orb_countryid = new()
+                {
+                    Id = targetCountry.Id,
+                    Name = targetCountry.Orb_name,
+                    LogicalName = targetCountry.LogicalName
+                }
+            };
+
+            fakeContext.Initialize(new List<Entity> { targetCountry, preTargetCountry, targetEntity });
+
+            Account preImage = new()
+            {
+                Id = targetEntity.Id,
+                Telephone1 = "968384411"
+            };
+
+            ParameterCollection inputParameters = new()
+            {
+                { "Target", targetEntity }
+            };
+
+            EntityImageCollection preEntityImages = new()
+            {
+                { "PreImage", preImage }
+            };
+
+            FakeRemoteExecutionContext context = new()
+            {
+                MessageName = "Update",
+                Stage = (int)SdkMessageProcessingStep_Stage.Postoperation,
+                UserId = Guid.NewGuid(),
+                PrimaryEntityId = targetEntity.Id,
+                PrimaryEntityName = targetEntity.LogicalName,
+                InputParameters = inputParameters,
+                PreEntityImages = preEntityImages,
+                Mode = (int)SdkMessageProcessingStep_Mode.Asynchronous,
+                Depth = 1
+            };
+
+            JsonSerializerSettings jsonSerializerSettings = new()
+            {
+                Formatting = Formatting.Indented,
+                NullValueHandling = NullValueHandling.Ignore,
+                DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
+                ContractResolver = new LowerCaseDictionaryKeysContractResolver()
+            };
+
+            string requestBody = JsonConvert.SerializeObject(context, jsonSerializerSettings);
+
+            HttpRequest request = Utils.CreateMockHttpRequest(requestBody);
+            var accountPostOperationHttpTrigger = this.CreateAccountPostOperationHttpTrigger();
 
             // Act
-
+            _ = accountPostOperationHttpTrigger.Run(request, NullLogger.Instance).Result as JsonResult;
+            var result = fakeService.Retrieve(Account.EntityLogicalName,
+                                              targetEntity.Id,
+                                              new Microsoft.Xrm.Sdk.Query.ColumnSet(Account.Fields.Telephone1));
 
             // Assert
-
+            Assert.Equal("+93968384411", result.GetAttributeValue<string>(Account.Fields.Telephone1));
         }
 
         #endregion PhonePrefix
@@ -54,7 +128,6 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Triggers
 
             // Assert
             Assert.NotNull(sut);
-
             Assert.Equal((int)HttpStatusCode.OK, sut.StatusCode);
 
             var result = sut.Value as OperationResult;

@@ -15,7 +15,7 @@ namespace Ttms.Crm.FunctionApp.IntegrationTests.Triggers
 
         public AccountPostOperationHttpTriggerTests()
         {
-            this.fakeCrmService = new(_service, new NullLogger<CrmService>());
+            this.fakeCrmService = new(fakeService, new NullLogger<CrmService>());
         }
 
         private AccountPostOperationHttpTrigger CreateAccountPostOperationHttpTrigger()
