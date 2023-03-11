@@ -50,13 +50,13 @@ namespace Ttms.Crm.FunctionApp.Triggers
                                               out Entity preImage,
                                               out Entity postImage))
                 {
-                    PerformPostOperationAccountLogic(context.Mode, log, entity, preImage, postImage);
-
                     return new JsonResult(OperationResult.FailureResult("Invalid context received."))
                     {
                         StatusCode = (int)HttpStatusCode.BadRequest
                     };
                 }
+
+                PerformPostOperationAccountLogic(context.Mode, log, entity, preImage, postImage);
 
                 return new JsonResult(OperationResult.SuccessResult())
                 {

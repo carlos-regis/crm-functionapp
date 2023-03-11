@@ -1,10 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Xrm.Sdk;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using Ttms.Crm.FunctionApp.Shared;
+using Ttms.Crm.FunctionApp.Shared.EntityModel;
 
 namespace Ttms.Crm.FunctionApp.Domain.Helpers
 {
@@ -86,9 +89,21 @@ namespace Ttms.Crm.FunctionApp.Domain.Helpers
             RemoteExecutionContext context = null;
             try
             {
+                DataContractJsonSerializerSettings settings = new()
+                {
+                    EmitTypeInformation = EmitTypeInformation.AsNeeded,
+                    KnownTypes = new List<Type>()
+                {
+                    typeof(RemoteExecutionContext),
+                    typeof(Entity),
+                    typeof(EntityReference),
+                    typeof(Account)
+                }
+                };
+
                 using (var memoryStream = new MemoryStream(Encoding.Unicode.GetBytes(jsonContext)))
                 {
-                    DataContractJsonSerializer jsonSerializer = new(typeof(RemoteExecutionContext));
+                    DataContractJsonSerializer jsonSerializer = new(typeof(RemoteExecutionContext), settings);
                     context = (RemoteExecutionContext)jsonSerializer.ReadObject(memoryStream);
                 }
 

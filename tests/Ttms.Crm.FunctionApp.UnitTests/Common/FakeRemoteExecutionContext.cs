@@ -9,6 +9,7 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Common
     /// Defines the contextual information sent to a remote service endpoint at run-time.
     /// Extracted from https://learn.microsoft.com/en-us/dotnet/api/microsoft.xrm.sdk.remoteexecutioncontext?view=dataverse-sdk-latest#properties
     /// </summary>
+    //[KnownType("GetKnownParameterTypes")]
     [DataContract(Name = "RemoteExecutionContext", Namespace = "")]
     public class FakeRemoteExecutionContext : IPluginExecutionContext, IExtensibleDataObject
     {

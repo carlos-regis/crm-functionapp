@@ -2,15 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Xrm.Sdk;
-using Newtonsoft.Json;
+using Microsoft.Xrm.Sdk.Query;
 using System.Net;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using Ttms.Crm.FunctionApp.Common;
 using Ttms.Crm.FunctionApp.Domain.Services;
 using Ttms.Crm.FunctionApp.Shared.EntityModel;
 using Ttms.Crm.FunctionApp.Triggers;
 using Ttms.Crm.FunctionApp.UnitTests.Common;
 using Ttms.Crm.FunctionApp.UnitTests.Helpers;
-using Ttms.Crm.FunctionApp.UnitTests.Helpers.Serialization;
 
 namespace Ttms.Crm.FunctionApp.UnitTests.Triggers
 {
@@ -91,15 +92,37 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Triggers
                 Depth = 1
             };
 
-            JsonSerializerSettings jsonSerializerSettings = new()
+            DataContractJsonSerializerSettings settings = new()
             {
-                Formatting = Formatting.Indented,
-                NullValueHandling = NullValueHandling.Ignore,
-                DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
-                ContractResolver = new LowerCaseDictionaryKeysContractResolver()
+                EmitTypeInformation = EmitTypeInformation.AsNeeded,
+                KnownTypes = new List<Type>()
+                {
+                    typeof(RemoteExecutionContext),
+                    typeof(Entity),
+                    typeof(EntityReference),
+                    typeof(Account)
+                }
             };
 
-            string requestBody = JsonConvert.SerializeObject(context, jsonSerializerSettings);
+            string requestBody;
+            using (var memoryStream = new MemoryStream())
+            {
+                DataContractJsonSerializer serializer = new(typeof(FakeRemoteExecutionContext), settings);
+                serializer.WriteObject(memoryStream, context);
+                memoryStream.Position = 0;
+                requestBody = (new StreamReader(memoryStream)).ReadToEnd();
+            }
+
+            //JsonSerializerSettings jsonSerializerSettings = new()
+            //{
+            //    Formatting = Formatting.Indented,
+            //    NullValueHandling = NullValueHandling.Ignore,
+            //    DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
+            //    ContractResolver = new LowerCaseDictionaryKeysContractResolver(),
+            //    TypeNameHandling = TypeNameHandling.Auto
+            //};
+
+            //string requestBody = JsonConvert.SerializeObject(context, jsonSerializerSettings);
 
             HttpRequest request = Utils.CreateMockHttpRequest(requestBody);
             var accountPostOperationHttpTrigger = this.CreateAccountPostOperationHttpTrigger();
