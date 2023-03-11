@@ -108,7 +108,7 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Triggers
             _ = accountPostOperationHttpTrigger.Run(request, NullLogger.Instance).Result as JsonResult;
             var result = fakeService.Retrieve(Account.EntityLogicalName,
                                               targetEntity.Id,
-                                              new Microsoft.Xrm.Sdk.Query.ColumnSet(Account.Fields.Telephone1));
+                                              new ColumnSet(Account.Fields.Telephone1));
 
             // Assert
             Assert.Equal("+93968384411", result.GetAttributeValue<string>(Account.Fields.Telephone1));
