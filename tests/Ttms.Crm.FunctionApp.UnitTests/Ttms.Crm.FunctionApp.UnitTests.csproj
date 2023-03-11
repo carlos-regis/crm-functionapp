@@ -24,11 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Consents\" />
-    <Folder Include="Tasks\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\Ttms.Crm.FunctionApp\Ttms.Crm.FunctionApp.csproj" />
   </ItemGroup>
 

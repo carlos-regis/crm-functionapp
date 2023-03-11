@@ -103,8 +103,8 @@ namespace Ttms.Crm.FunctionApp.Domain.Helpers
 
                 using (var memoryStream = new MemoryStream(Encoding.Unicode.GetBytes(jsonContext)))
                 {
-                    DataContractJsonSerializer jsonSerializer = new(typeof(RemoteExecutionContext), settings);
-                    context = (RemoteExecutionContext)jsonSerializer.ReadObject(memoryStream);
+                    DataContractJsonSerializer deserializer = new(typeof(RemoteExecutionContext), settings);
+                    context = (RemoteExecutionContext)deserializer.ReadObject(memoryStream);
                 }
 
                 return context;

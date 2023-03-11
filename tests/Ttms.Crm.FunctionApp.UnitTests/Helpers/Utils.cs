@@ -1,6 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Xrm.Sdk;
 using Moq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using System.Text;
+using Ttms.Crm.FunctionApp.Shared.EntityModel;
+using Ttms.Crm.FunctionApp.UnitTests.Common;
 
 namespace Ttms.Crm.FunctionApp.UnitTests.Helpers
 {
@@ -26,6 +31,44 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Helpers
             }
 
             return File.ReadAllText(Path.Combine(directory, fileName));
+        }
+
+        /// <summary>
+        /// Converts a remote execution context to JSON
+        /// </summary>
+        /// <param name="fakeContext">RemoteExecutionContext context object</param>
+        /// <returns>JSON string</returns>
+        public static string GetJsonFromRemoteExecutionContext(FakeRemoteExecutionContext fakeContext)
+        {
+            byte[] jsonRequestBody;
+
+            try
+            {
+                DataContractJsonSerializerSettings settings = new()
+                {
+                    EmitTypeInformation = EmitTypeInformation.AsNeeded,
+                    KnownTypes = new List<Type>()
+                {
+                    typeof(RemoteExecutionContext),
+                    typeof(Entity),
+                    typeof(EntityReference),
+                    typeof(Account)
+                }
+                };
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    DataContractJsonSerializer serializer = new(typeof(FakeRemoteExecutionContext), settings);
+                    serializer.WriteObject(memoryStream, fakeContext);
+                    jsonRequestBody = memoryStream.ToArray();
+                }
+
+                return Encoding.UTF8.GetString(jsonRequestBody, 0, jsonRequestBody.Length);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message);
+            }
         }
     }
 }
