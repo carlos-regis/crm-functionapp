@@ -52,7 +52,8 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Helpers
                     typeof(RemoteExecutionContext),
                     typeof(Entity),
                     typeof(EntityReference),
-                    typeof(Account)
+                    typeof(Account),
+                    typeof(Orb_country)
                 }
                 };
 

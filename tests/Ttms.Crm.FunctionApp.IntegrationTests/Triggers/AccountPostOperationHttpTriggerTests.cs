@@ -5,7 +5,7 @@ using System.Net;
 using Ttms.Crm.FunctionApp.Common;
 using Ttms.Crm.FunctionApp.Domain.Services;
 using Ttms.Crm.FunctionApp.Triggers;
-using Ttms.Crm.FunctionApp.UnitTests.Common;
+using Ttms.Crm.Tests.Shared.UnitTests;
 
 namespace Ttms.Crm.FunctionApp.IntegrationTests.Triggers
 {

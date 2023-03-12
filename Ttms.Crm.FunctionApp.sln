@@ -15,6 +15,14 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Ttms.Crm.FunctionApp.Shared
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ttms.Crm.FunctionApp.IntegrationTests", "tests\Ttms.Crm.FunctionApp.IntegrationTests\Ttms.Crm.FunctionApp.IntegrationTests.csproj", "{F0874BB1-2D90-4D3C-BBB0-76E5FF6AE14A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ttms.Crm.Facade", "src\Ttms.Crm.Facade\Ttms.Crm.Facade.csproj", "{F888CD37-6325-492E-B0E3-52629C4F5D31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ttms.Crm.Facade.UnitTests", "tests\Ttms.Crm.Facade.UnitTests\Ttms.Crm.Facade.UnitTests.csproj", "{55C671D7-B810-466A-91FD-54E19D6E2F84}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Ttms.Crm.Tests.Shared", "tests\Ttms.Crm.Tests.Shared\Ttms.Crm.Tests.Shared.shproj", "{42AD52E1-C768-4D2B-BD2B-278CA6AC3D24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ttms.Crm.Facade.IntegrationTests", "tests\Ttms.Crm.Facade.IntegrationTests\Ttms.Crm.Facade.IntegrationTests.csproj", "{777A629E-8504-4EE2-B7EC-A92AB2A62371}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +41,18 @@ Global
 		{F0874BB1-2D90-4D3C-BBB0-76E5FF6AE14A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0874BB1-2D90-4D3C-BBB0-76E5FF6AE14A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0874BB1-2D90-4D3C-BBB0-76E5FF6AE14A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F888CD37-6325-492E-B0E3-52629C4F5D31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F888CD37-6325-492E-B0E3-52629C4F5D31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F888CD37-6325-492E-B0E3-52629C4F5D31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F888CD37-6325-492E-B0E3-52629C4F5D31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55C671D7-B810-466A-91FD-54E19D6E2F84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55C671D7-B810-466A-91FD-54E19D6E2F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55C671D7-B810-466A-91FD-54E19D6E2F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55C671D7-B810-466A-91FD-54E19D6E2F84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{777A629E-8504-4EE2-B7EC-A92AB2A62371}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{777A629E-8504-4EE2-B7EC-A92AB2A62371}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{777A629E-8504-4EE2-B7EC-A92AB2A62371}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{777A629E-8504-4EE2-B7EC-A92AB2A62371}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,12 +62,21 @@ Global
 		{17FD6E7C-D5DB-43B6-87A8-8568A32C2014} = {72EA8C72-F114-4488-8464-1E2973D03F25}
 		{A0115000-5725-407E-8D30-1AA7F62ABC81} = {68B0855F-CC29-4699-9352-8F30803F93FE}
 		{F0874BB1-2D90-4D3C-BBB0-76E5FF6AE14A} = {72EA8C72-F114-4488-8464-1E2973D03F25}
+		{F888CD37-6325-492E-B0E3-52629C4F5D31} = {68B0855F-CC29-4699-9352-8F30803F93FE}
+		{55C671D7-B810-466A-91FD-54E19D6E2F84} = {72EA8C72-F114-4488-8464-1E2973D03F25}
+		{42AD52E1-C768-4D2B-BD2B-278CA6AC3D24} = {72EA8C72-F114-4488-8464-1E2973D03F25}
+		{777A629E-8504-4EE2-B7EC-A92AB2A62371} = {72EA8C72-F114-4488-8464-1E2973D03F25}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3F1A5D0C-5D38-48EA-B215-9618A60862EE}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		tests\Ttms.Crm.Tests.Shared\Ttms.Crm.Tests.Shared.projitems*{17fd6e7c-d5db-43b6-87a8-8568a32c2014}*SharedItemsImports = 5
+		tests\Ttms.Crm.Tests.Shared\Ttms.Crm.Tests.Shared.projitems*{42ad52e1-c768-4d2b-bd2b-278ca6ac3d24}*SharedItemsImports = 13
+		tests\Ttms.Crm.Tests.Shared\Ttms.Crm.Tests.Shared.projitems*{55c671d7-b810-466a-91fd-54e19d6e2f84}*SharedItemsImports = 5
+		tests\Ttms.Crm.Tests.Shared\Ttms.Crm.Tests.Shared.projitems*{777a629e-8504-4ee2-b7ec-a92ab2a62371}*SharedItemsImports = 5
 		src\Ttms.Crm.FunctionApp.Shared\Ttms.Crm.FunctionApp.Shared.projitems*{85991166-df22-4fd4-8db8-d60d6e2c4ee9}*SharedItemsImports = 5
 		src\Ttms.Crm.FunctionApp.Shared\Ttms.Crm.FunctionApp.Shared.projitems*{a0115000-5725-407e-8d30-1aa7f62abc81}*SharedItemsImports = 13
+		tests\Ttms.Crm.Tests.Shared\Ttms.Crm.Tests.Shared.projitems*{f0874bb1-2d90-4d3c-bbb0-76e5ff6ae14a}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

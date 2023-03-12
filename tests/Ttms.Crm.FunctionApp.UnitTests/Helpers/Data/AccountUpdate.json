@@ -1,199 +1,170 @@
 ﻿{
-	"BusinessUnitId": "47da216d-74b6-ed11-9886-000d3addc792",
-	"CorrelationId": "9f54f12a-0b94-44d9-85f3-f7f9d770a299",
-	"Depth": 1,
-	"InitiatingUserAzureActiveDirectoryObjectId": "74df8ebf-4d72-4de3-8062-bae0698c9929",
-	"InitiatingUserId": "8b281a73-74b6-ed11-9886-000d3addc792",
-	"InputParameters": [
-		{
-			"key": "Target",
-			"value": {
-				"__type": "Entity:http://schemas.microsoft.com/xrm/2011/Contracts",
-				"Attributes": [
-					{
-						"key": "telephone1",
-						"value": "962922573"
-					},
-					{
-						"key": "accountid",
-						"value": "4717b527-e7bb-ed11-83fe-000d3ab7a2f2"
-					},
-					{
-						"key": "modifiedon",
-						"value": "/Date(1678309441000)/"
-					},
-					{
-						"key": "modifiedby",
-						"value": {
-							"__type": "EntityReference:http://schemas.microsoft.com/xrm/2011/Contracts",
-							"Id": "8b281a73-74b6-ed11-9886-000d3addc792",
-							"KeyAttributes": [],
-							"LogicalName": "systemuser",
-							"Name": null,
-							"RowVersion": null
-						}
-					},
-					{
-						"key": "modifiedonbehalfby",
-						"value": null
-					}
-				],
-				"EntityState": null,
-				"FormattedValues": [],
-				"Id": "4717b527-e7bb-ed11-83fe-000d3ab7a2f2",
-				"KeyAttributes": [],
-				"LogicalName": "account",
-				"RelatedEntities": [],
-				"RowVersion": null
-			}
-		}
-	],
-	"IsExecutingOffline": false,
-	"IsInTransaction": false,
-	"IsOfflinePlayback": false,
-	"IsolationMode": 1,
-	"MessageName": "Update",
-	"Mode": 1,
-	"OperationCreatedOn": "/Date(1678309444000+0000)/",
-	"OperationId": "5db2f0c0-f4bd-ed11-83fe-000d3ab7a2f2",
-	"OrganizationId": "96cbc424-d923-4910-be81-780ccc237c34",
-	"OrganizationName": "unq96cbc424d9234910be81780ccc237",
-	"OutputParameters": [],
-	"OwningExtension": {
-		"Id": "674719c2-f3bd-ed11-83fe-000d3ab7a2f2",
-		"KeyAttributes": [],
-		"LogicalName": "sdkmessageprocessingstep",
-		"Name": null,
-		"RowVersion": null
-	},
-	"ParentContext": {
-		"BusinessUnitId": "47da216d-74b6-ed11-9886-000d3addc792",
-		"CorrelationId": "9f54f12a-0b94-44d9-85f3-f7f9d770a299",
-		"Depth": 1,
-		"InitiatingUserAzureActiveDirectoryObjectId": "74df8ebf-4d72-4de3-8062-bae0698c9929",
-		"InitiatingUserId": "8b281a73-74b6-ed11-9886-000d3addc792",
-		"InputParameters": [
-			{
-				"key": "Target",
-				"value": {
-					"__type": "Entity:http://schemas.microsoft.com/xrm/2011/Contracts",
-					"Attributes": [
-						{
-							"key": "telephone1",
-							"value": "962922573"
-						},
-						{
-							"key": "accountid",
-							"value": "4717b527-e7bb-ed11-83fe-000d3ab7a2f2"
-						}
-					],
-					"EntityState": null,
-					"FormattedValues": [],
-					"Id": "4717b527-e7bb-ed11-83fe-000d3ab7a2f2",
-					"KeyAttributes": [],
-					"LogicalName": "account",
-					"RelatedEntities": [],
-					"RowVersion": null
-				}
-			},
-			{
-				"key": "x-ms-app-name",
-				"value": "msdynce_salestrialhub"
-			},
-			{
-				"key": "SuppressDuplicateDetection",
-				"value": false
-			}
-		],
-		"IsExecutingOffline": false,
-		"IsInTransaction": false,
-		"IsOfflinePlayback": false,
-		"IsolationMode": 1,
-		"MessageName": "Update",
-		"Mode": 1,
-		"OperationCreatedOn": "/Date(1678309444000+0000)/",
-		"OperationId": "5db2f0c0-f4bd-ed11-83fe-000d3ab7a2f2",
-		"OrganizationId": "96cbc424-d923-4910-be81-780ccc237c34",
-		"OrganizationName": "unq96cbc424d9234910be81780ccc237",
-		"OutputParameters": [],
-		"OwningExtension": {
-			"Id": "674719c2-f3bd-ed11-83fe-000d3ab7a2f2",
-			"KeyAttributes": [],
-			"LogicalName": "sdkmessageprocessingstep",
-			"Name": null,
-			"RowVersion": null
-		},
-		"ParentContext": null,
-		"PostEntityImages": [],
-		"PreEntityImages": [],
-		"PrimaryEntityId": "4717b527-e7bb-ed11-83fe-000d3ab7a2f2",
-		"PrimaryEntityName": "account",
-		"RequestId": "7ff550e9-9e71-4d50-a7d2-d371bd17d4b0",
-		"SecondaryEntityName": "none",
-		"SharedVariables": [
-			{
-				"key": "IsAutoTransact",
-				"value": true
-			},
-			{
-				"key": "x-ms-app-name",
-				"value": "msdynce_salestrialhub"
-			},
-			{
-				"key": "ChangedEntityTypes",
-				"value": [
-					{
-						"__type": "KeyValuePairOfstringstring:#System.Collections.Generic",
-						"key": "account",
-						"value": "Update"
-					}
-				]
-			}
-		],
-		"Stage": 30,
-		"UserAzureActiveDirectoryObjectId": "74df8ebf-4d72-4de3-8062-bae0698c9929",
-		"UserId": "8b281a73-74b6-ed11-9886-000d3addc792"
-	},
-	"PostEntityImages": [
-		{
-			"key": "AsynchronousStepPrimaryName",
-			"value": {
-				"Attributes": [
-					{
-						"key": "name",
-						"value": "CR LLC - Zeca"
-					},
-					{
-						"key": "accountid",
-						"value": "4717b527-e7bb-ed11-83fe-000d3ab7a2f2"
-					}
-				],
-				"EntityState": null,
-				"FormattedValues": [],
-				"Id": "4717b527-e7bb-ed11-83fe-000d3ab7a2f2",
-				"KeyAttributes": [],
-				"LogicalName": "account",
-				"RelatedEntities": [],
-				"RowVersion": null
-			}
-		}
-	],
-	"PreEntityImages": [],
-	"PrimaryEntityId": "4717b527-e7bb-ed11-83fe-000d3ab7a2f2",
-	"PrimaryEntityName": "account",
-	"RequestId": "7ff550e9-9e71-4d50-a7d2-d371bd17d4b0",
-	"SecondaryEntityName": "none",
-	"SharedVariables": [
-		{
-			"key": "IsAutoTransact",
-			"value": true
-		},
-		{
-			"key": "x-ms-app-name",
-			"value": "msdynce_salestrialhub"
-		}
-	],
-	"Stage": 40,
-	"UserAzureActiveDirectoryObjectId": "74df8ebf-4d72-4de3-8062-bae0698c9929",
-	"UserId": "8b281a73-74b6-ed11-9886-000d3addc792"
+  "BusinessUnitId": "00000000-0000-0000-0000-000000000000",
+  "CorrelationId": "00000000-0000-0000-0000-000000000000",
+  "Depth": 1,
+  "ExtensionData": null,
+  "InitiatingUserAzureActiveDirectoryObjectId": "00000000-0000-0000-0000-000000000000",
+  "InitiatingUserId": "00000000-0000-0000-0000-000000000000",
+  "InputParameters": [
+    {
+      "key": "Target",
+      "value": {
+        "__type": "Account:#Ttms.Crm.FunctionApp.Shared.EntityModel",
+        "Attributes": [
+          {
+            "key": "accountid",
+            "value": "09a56039-f28d-4f7f-b3fd-19bd5910e956"
+          },
+          {
+            "key": "telephone1",
+            "value": "968384411"
+          },
+          {
+            "key": "orb_countryid",
+            "value": {
+              "__type": "EntityReference:http:\/\/schemas.microsoft.com\/xrm\/2011\/Contracts",
+              "Id": "e67d8e29-e3bd-496a-9f49-073c9c8e3824",
+              "KeyAttributes": [],
+              "LogicalName": "orb_country",
+              "Name": "Afghanistan",
+              "RowVersion": null
+            }
+          },
+          {
+            "key": "createdon",
+            "value": "\/Date(1678609338109)\/"
+          },
+          {
+            "key": "modifiedon",
+            "value": "\/Date(1678609338109)\/"
+          },
+          {
+            "key": "createdby",
+            "value": {
+              "__type": "EntityReference:http:\/\/schemas.microsoft.com\/xrm\/2011\/Contracts",
+              "Id": "9c2a50b2-479e-4e5c-a303-8f9c32d62450",
+              "KeyAttributes": [],
+              "LogicalName": "systemuser",
+              "Name": null,
+              "RowVersion": null
+            }
+          },
+          {
+            "key": "modifiedby",
+            "value": {
+              "__type": "EntityReference:http:\/\/schemas.microsoft.com\/xrm\/2011\/Contracts",
+              "Id": "9c2a50b2-479e-4e5c-a303-8f9c32d62450",
+              "KeyAttributes": [],
+              "LogicalName": "systemuser",
+              "Name": null,
+              "RowVersion": null
+            }
+          },
+          {
+            "key": "ownerid",
+            "value": {
+              "__type": "EntityReference:http:\/\/schemas.microsoft.com\/xrm\/2011\/Contracts",
+              "Id": "9c2a50b2-479e-4e5c-a303-8f9c32d62450",
+              "KeyAttributes": [],
+              "LogicalName": "systemuser",
+              "Name": null,
+              "RowVersion": null
+            }
+          },
+          {
+            "key": "statecode",
+            "value": {
+              "__type": "OptionSetValue:http:\/\/schemas.microsoft.com\/xrm\/2011\/Contracts",
+              "Value": 0
+            }
+          }
+        ],
+        "EntityState": null,
+        "FormattedValues": [],
+        "Id": "09a56039-f28d-4f7f-b3fd-19bd5910e956",
+        "KeyAttributes": [],
+        "LogicalName": "account",
+        "RelatedEntities": [],
+        "RowVersion": null
+      }
+    }
+  ],
+  "IsExecutingOffline": false,
+  "IsInTransaction": false,
+  "IsOfflinePlayback": false,
+  "IsolationMode": 1,
+  "MessageName": "Update",
+  "Mode": 1,
+  "OperationCreatedOn": "\/Date(1678609338113)\/",
+  "OperationId": "00000000-0000-0000-0000-000000000000",
+  "OrganizationId": "00000000-0000-0000-0000-000000000000",
+  "OrganizationName": "",
+  "OutputParameters": [],
+  "OwningExtension": null,
+  "ParentContext": {
+    "__type": "RemoteExecutionContext:http:\/\/schemas.microsoft.com\/xrm\/2011\/Contracts",
+    "BusinessUnitId": "00000000-0000-0000-0000-000000000000",
+    "CorrelationId": "00000000-0000-0000-0000-000000000000",
+    "Depth": 0,
+    "InitiatingUserAzureActiveDirectoryObjectId": "00000000-0000-0000-0000-000000000000",
+    "InitiatingUserId": "00000000-0000-0000-0000-000000000000",
+    "InputParameters": [],
+    "IsExecutingOffline": false,
+    "IsInTransaction": false,
+    "IsOfflinePlayback": false,
+    "IsolationMode": 0,
+    "MessageName": null,
+    "Mode": 0,
+    "OperationCreatedOn": "\/Date(-62135593200000-0100)\/",
+    "OperationId": "00000000-0000-0000-0000-000000000000",
+    "OrganizationId": "00000000-0000-0000-0000-000000000000",
+    "OrganizationName": null,
+    "OutputParameters": [],
+    "OwningExtension": null,
+    "ParentContext": null,
+    "PostEntityImages": [],
+    "PreEntityImages": [],
+    "PrimaryEntityId": "00000000-0000-0000-0000-000000000000",
+    "PrimaryEntityName": null,
+    "RequestId": null,
+    "SecondaryEntityName": null,
+    "SharedVariables": [],
+    "Stage": 0,
+    "UserAzureActiveDirectoryObjectId": "00000000-0000-0000-0000-000000000000",
+    "UserId": "00000000-0000-0000-0000-000000000000"
+  },
+  "PostEntityImages": [],
+  "PreEntityImages": [
+    {
+      "key": "PreImage",
+      "value": {
+        "__type": "Account:#Ttms.Crm.FunctionApp.Shared.EntityModel",
+        "Attributes": [
+          {
+            "key": "accountid",
+            "value": "09a56039-f28d-4f7f-b3fd-19bd5910e956"
+          },
+          {
+            "key": "telephone1",
+            "value": "968384411"
+          }
+        ],
+        "EntityState": null,
+        "FormattedValues": [],
+        "Id": "09a56039-f28d-4f7f-b3fd-19bd5910e956",
+        "KeyAttributes": [],
+        "LogicalName": "account",
+        "RelatedEntities": [],
+        "RowVersion": null
+      }
+    }
+  ],
+  "PrimaryEntityId": "09a56039-f28d-4f7f-b3fd-19bd5910e956",
+  "PrimaryEntityName": "account",
+  "RequestId": null,
+  "SecondaryEntityName": "",
+  "SharedVariables": [],
+  "Stage": 40,
+  "UserAzureActiveDirectoryObjectId": "00000000-0000-0000-0000-000000000000",
+  "UserId": "466a1260-ce37-47c0-8236-0ae954747499"
 }

@@ -4,7 +4,6 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Client;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -33,7 +32,6 @@ namespace Ttms.Crm.FunctionApp.Triggers
             ILogger log)
         {
             RemoteExecutionContext context;
-            log.LogInformation("The {Function} function processed a request.", nameof(AccountPostOperationHttpTrigger));
 
             try
             {
@@ -41,8 +39,6 @@ namespace Ttms.Crm.FunctionApp.Triggers
                 log.LogInformation("{requestBody }", requestBody);
 
                 context = CrmUtils.GetRemoteExecutionContextFromJson(requestBody);
-                log.LogInformation("{Context}", context);
-
                 if (!CrmUtils.ValidateContext(context,
                                               Account.EntityLogicalName,
                                               log,
@@ -79,7 +75,7 @@ namespace Ttms.Crm.FunctionApp.Triggers
                                                        Entity preImage,
                                                        Entity postImage)
         {
-            CrmContext crmContext = (CrmContext)(new OrganizationServiceContext(_crmService.GetOrganizationService()));
+            CrmContext crmContext = new CrmContext(_crmService.GetOrganizationService());
 
             try
             {

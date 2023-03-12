@@ -27,7 +27,7 @@ namespace Ttms.Crm.FunctionApp.UnitTests.Domain.Helpers
             // Assert
             Assert.True(sut);
             Assert.NotNull(entity);
-            Assert.Null(preImage);
+            Assert.NotNull(preImage);
             Assert.Null(postImage);
         }
 

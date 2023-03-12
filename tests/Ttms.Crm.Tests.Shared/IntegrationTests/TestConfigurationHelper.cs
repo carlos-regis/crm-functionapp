@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Ttms.Crm.FunctionApp.IntegrationTests.Helpers
+namespace Ttms.Crm.Tests.Shared.IntegrationTests
 {
-    public static class TestConfigHelper
+    public static class TestConfigurationHelper
     {
         public static IConfigurationRoot GetIConfigurationRoot()
         {

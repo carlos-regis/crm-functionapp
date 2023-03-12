@@ -4,7 +4,7 @@ using FakeXrmEasy.Middleware;
 using FakeXrmEasy.Middleware.Crud;
 using Microsoft.PowerPlatform.Dataverse.Client;
 
-namespace Ttms.Crm.FunctionApp.UnitTests.Common
+namespace Ttms.Crm.Tests.Shared.UnitTests
 {
     public abstract class FakeContextTestsBase
     {

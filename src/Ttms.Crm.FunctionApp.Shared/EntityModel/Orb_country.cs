@@ -19,7 +19,6 @@ namespace Ttms.Crm.FunctionApp.Shared.EntityModel
     [Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("orb_country")]
     public partial class Orb_country : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
     {
-
         public static class Fields
         {
             public const string CreatedBy = "createdby";
@@ -497,7 +496,7 @@ namespace Ttms.Crm.FunctionApp.Shared.EntityModel
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rbtt_phoneprefix")]
         public string rbtt_phoneprefix

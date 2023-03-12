@@ -52,9 +52,10 @@ namespace Ttms.Crm.FunctionApp.Shared.BusinessLogic.AccountLogic.Filter
 
         public bool ValidatePhonePrefix(Entity entity)
         {
-            if (entity.Attributes.Contains(Account.Fields.Telephone1) && ((!entity.GetAttributeValue<string>(Account.Fields.Telephone1).Equals(string.Empty) &&
-                     !entity.GetAttributeValue<string>(Account.Fields.Telephone1).StartsWith("+")) ||
-                entity.Attributes.Contains(Account.Fields.orb_countryid)))
+            if (entity.Attributes.Contains(Account.Fields.Telephone1) &&
+               ((!entity.GetAttributeValue<string>(Account.Fields.Telephone1).Equals(string.Empty)
+               && !entity.GetAttributeValue<string>(Account.Fields.Telephone1).StartsWith("+"))
+               || entity.Attributes.Contains(Account.Fields.orb_countryid)))
             {
                 return true;
             }

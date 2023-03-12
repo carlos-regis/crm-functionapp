@@ -36,15 +36,20 @@ namespace Ttms.Crm.FunctionApp.Shared.BusinessLogic.AccountLogic.Logic
         public Account PhonePrefix_Logic()
         {
             Guid countryId = entity.GetAttributeValue<EntityReference>(Account.Fields.orb_countryid) != null ?
-                            entity.GetAttributeValue<EntityReference>(Account.Fields.orb_countryid).Id : preImage.GetAttributeValue<EntityReference>(Account.Fields.orb_countryid).Id;
+                             entity.GetAttributeValue<EntityReference>(Account.Fields.orb_countryid).Id :
+                             preImage.GetAttributeValue<EntityReference>(Account.Fields.orb_countryid).Id;
 
             Orb_country retrievedCountry = countryRepos.retrieveCountryPhonePrefix(countryId);
 
             if (retrievedCountry != null)
             {
                 string phoneValue = entity.GetAttributeValue<string>(Account.Fields.Telephone1) != null ?
-                    entity.GetAttributeValue<string>(Account.Fields.Telephone1) : preImage.GetAttributeValue<string>(Account.Fields.Telephone1);
-                if (phoneValue.StartsWith("0")) phoneValue = phoneValue.Substring(1);
+                                    entity.GetAttributeValue<string>(Account.Fields.Telephone1) :
+                                    preImage.GetAttributeValue<string>(Account.Fields.Telephone1);
+                if (phoneValue.StartsWith("0"))
+                {
+                    phoneValue = phoneValue.Substring(1);
+                }
                 accountToUpdate.Attributes[Account.Fields.Telephone1] = $"+{retrievedCountry.rbtt_phoneprefix}{phoneValue}";
             }
             else

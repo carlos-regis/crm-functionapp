@@ -35,10 +35,10 @@ namespace Ttms.Crm.FunctionApp.Domain.Helpers
                 entity = (Entity)context.InputParameters["Target"];
                 if (entity.LogicalName != entityLogicalName)
                 {
-                    log.LogWarning("Entity is : {Entity}", entity.LogicalName);
+                    log.LogWarning("Entity: {Entity}", entity.LogicalName);
                     return false;
                 }
-                log.LogInformation("Entity is : {Entity}", entity.LogicalName);
+                log.LogInformation("Entity: {Entity}", entity.LogicalName);
 
                 if (!(context.MessageName == "Create" || context.MessageName == "Update"))
                 {
@@ -75,7 +75,6 @@ namespace Ttms.Crm.FunctionApp.Domain.Helpers
 
                 return true;
             }
-
             return false;
         }
 
@@ -97,7 +96,8 @@ namespace Ttms.Crm.FunctionApp.Domain.Helpers
                     typeof(RemoteExecutionContext),
                     typeof(Entity),
                     typeof(EntityReference),
-                    typeof(Account)
+                    typeof(Account),
+                    typeof(Orb_country)
                 }
                 };
 
